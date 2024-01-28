@@ -2,9 +2,19 @@ return {
   {
     -- Theme inspired by Atom
     'navarasu/onedark.nvim',
+    enabled = false,
     priority = 1000,
     config = function()
       vim.cmd.colorscheme 'onedark'
+    end,
+  },
+
+  {
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    priority = 1000,
+    config = function()
+      vim.cmd.colorscheme 'catppuccin'
     end,
   },
 
@@ -15,7 +25,7 @@ return {
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'onedark',
+        theme = 'catppuccin',
         component_separators = '|',
         section_separators = '',
       },
