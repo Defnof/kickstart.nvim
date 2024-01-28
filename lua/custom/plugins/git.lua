@@ -1,7 +1,20 @@
 return {
   -- Git related plugins
-  'tpope/vim-fugitive',
-  'tpope/vim-rhubarb',
+    {
+   "kdheepak/lazygit.nvim",
+    event = "VeryLazy",
+    keys = {
+      {
+        "<A-g>",
+        "<cmd>LazyGit<CR>",
+        desc = "LazyGit",
+      },
+    },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+  },
+
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
