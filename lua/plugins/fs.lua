@@ -13,28 +13,4 @@ return {
     },
     opts = {},
   },
-
-  -- NOTE: Backend for ranger, run ranger in nvim
-  {
-    'kevinhwang91/rnvimr',
-    keys = {
-      {
-        '<A-f>',
-        '<cmd>RnvimrToggle<CR>',
-        desc = 'Toggle Ranger',
-      },
-    },
-  },
-
-  {
-    'stevearc/oil.nvim',
-    opts = {},
-    keys = { {
-      '-',
-      '<cmd>Oil<CR>',
-      desc = 'Open parent directory',
-    } },
-    -- Optional dependencies
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-  },
 }
