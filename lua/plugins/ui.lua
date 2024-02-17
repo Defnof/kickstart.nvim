@@ -68,6 +68,7 @@ return {
       {
         "rcarriga/nvim-notify",
         opts = {
+          top_down = false,
           background_colour = "#000000"
         }
       },
@@ -78,6 +79,7 @@ return {
     'nvim-lualine/lualine.nvim',
     -- See `:help lualine.txt`
     opts = {
+      extensions = { 'fzf', 'lazy', 'nvim-tree', 'symbols-outline', 'toggleterm', 'trouble', },
       options = {
         icons_enabled = true,
         theme = 'catppuccin',
