@@ -1,6 +1,5 @@
 -- [[ Configure LSP ]]
---  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
+local map_keybinds = function(bufnr)
   -- NOTE: Remember that lua is a real programming language, and as such it is possible
   -- to define small helper and utility functions so you don't have to repeat yourself
   -- many times.
@@ -15,7 +14,7 @@ local on_attach = function(_, bufnr)
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
   end
 
-  nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+  nmap('<leader>ra', vim.lsp.buf.rename, '[R]en[a]me')
   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
   nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
@@ -37,10 +36,21 @@ local on_attach = function(_, bufnr)
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, '[W]orkspace [L]ist Folders')
 
+  -- Diagnostic keymaps
+  nmap('[d', vim.diagnostic.goto_prev, 'Go to previous [d]iagnostic message')
+  nmap(']d', vim.diagnostic.goto_next, 'Go to next [d]iagnostic message')
+  nmap('<leader>e', vim.diagnostic.open_float, 'Open floating diagnostic messag[e]')
+  nmap('<leader>q', vim.diagnostic.setloclist, 'Open diagnostics list')
+
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
     vim.lsp.buf.format()
   end, { desc = 'Format current buffer with LSP' })
+end
+
+
+local on_attach = function(_, bufnr)
+  return map_keybinds { bufnr }
 end
 
 -- mason-lspconfig requires that these setup functions are called in this order
@@ -60,8 +70,8 @@ local servers = {
   -- clangd = {},
   -- gopls = {},
   -- pyright = {},
-  -- rust_analyzer = {},
-  -- tsserver = {},
+  rust_analyzer = {},
+  tsserver = {},
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
 
   lua_ls = {
@@ -90,11 +100,21 @@ mason_lspconfig.setup {
 
 mason_lspconfig.setup_handlers {
   function(server_name)
-    require('lspconfig')[server_name].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = servers[server_name],
-      filetypes = (servers[server_name] or {}).filetypes,
-    }
+    -- NOTE: Add defaults
+    local settings = servers[server_name]
+
+    if settings['on_attach'] == nil then
+      settings['on_attach'] = on_attach
+    end
+
+    if settings['capabilities'] == nil then
+      settings['capabilities'] = capabilities
+    end
+
+    if settings['filetypes'] == nil then
+      settings['filetypes'] = servers[server_name].filetypes
+    end
+
+    require('lspconfig')[server_name].setup(settings)
   end,
 }
