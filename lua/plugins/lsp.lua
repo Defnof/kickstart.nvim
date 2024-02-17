@@ -45,6 +45,29 @@ return {
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
 
+  {
+    'stevearc/conform.nvim',
+    opts = {
+      lua = { "stylua" },
+      -- Use a sub-list to run only the first available formatter
+      javascript = { { "biome", } },
+      format_on_save = {
+        -- These options will be passed to conform.format()
+        timeout_ms = 500,
+        lsp_fallback = true,
+      },
+    },
+  },
+
+  {
+    'akinsho/toggleterm.nvim',
+    version = "*",
+    opts = {
+      open_mapping = [[<A-i>]],
+      direction = 'float',
+    },
+  },
+
   -- treesitter setup
   {
     -- Highlight, edit, and navigate code
