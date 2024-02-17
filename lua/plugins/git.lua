@@ -1,7 +1,7 @@
 return {
   -- Git related plugins
-    {
-   "kdheepak/lazygit.nvim",
+  {
+    "kdheepak/lazygit.nvim",
     event = "VeryLazy",
     keys = {
       {
@@ -21,11 +21,11 @@ return {
     opts = {
       -- See `:help gitsigns.txt`
       signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
+        add = { text = "" },
+        change = { text = "󰅫" },
+        delete = { text = '' },
+        topdelete = { text = '󰢦' },
+        changedelete = { text = '' },
       },
       on_attach = function(bufnr)
         local gs = package.loaded.gitsigns
