@@ -53,6 +53,23 @@ end
 require('mason').setup()
 require('mason-lspconfig').setup()
 
+
+-- NOTE: TSServer methods
+local function execute_ts_command(command)
+  return function()
+    local params = {
+      command = "_typescript." .. command,
+      arguments = {
+        vim.api.nvim_buf_get_name(0),
+      },
+    }
+
+    vim.lsp.buf.execute_command(params)
+  end
+end
+
+local lsputils = require "lspconfig.util"
+
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
 --
@@ -65,10 +82,108 @@ local servers = {
   -- clangd = {},
   -- gopls = {},
   -- pyright = {},
-  rust_analyzer = {},
-  tsserver = {},
-  -- html = { filetypes = { 'html', 'twig', 'hbs'} },
+  biome = {
+    root_dir = lsputils.root_pattern "biome.json",
+    single_file_support = false,
+    settings = {
+      filetypes = {
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescript.tsx",
+        "typescriptreact",
+      },
+    },
+  },
+  eslint = {
+    root_dir = lsputils.root_pattern ".eslintrc.js",
+    single_file_support = false,
+    settings = {
+      filetypes = {
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescript.tsx",
+        "typescriptreact",
+      },
+    },
+  },
+  tailwindcss = {
+    filetypes = {
+      "typescriptreact",
+    },
+  },
 
+
+  tsserver = {
+    on_attach = function(client, bufnr)
+      map_keybinds { bufnr }
+
+      if require "workspace-diagnostics" ~= nil then
+        require("workspace-diagnostics").populate_workspace_diagnostics(client, bufnr)
+      end
+    end,
+    -- NOTE: Settings for inlay hints for JS and TS
+    settings = {
+      typescript = {
+        inlayHints = {
+          includeInlayParameterNameHints = "all",
+          includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+          includeInlayFunctionParameterTypeHints = true,
+          includeInlayVariableTypeHints = true,
+          includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayEnumMemberValueHints = true,
+        },
+      },
+      javascript = {
+        inlayHints = {
+          includeInlayParameterNameHints = "all",
+          includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+          includeInlayFunctionParameterTypeHints = true,
+          includeInlayVariableTypeHints = true,
+          includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayEnumMemberValueHints = true,
+        },
+      },
+    },
+    init_options = {
+      preferences = {
+        importModuleSpecifierPreference = "absolute",
+        importModuleSpecifierEnding = "minimal",
+      },
+    },
+    commands = {
+      OrganizeImports = {
+        execute_ts_command "organizeImports",
+        description = "Organize Imports",
+      },
+      RemoveUnusedImports = {
+        execute_ts_command "removeUnused",
+        description = "Remove Unused Imports",
+      },
+      FixAll = {
+        execute_ts_command "fixAll",
+        description = "Fix All",
+      },
+    },
+  },
+  jsonls = {
+    settings = {
+      json = {
+        format = {
+          enable = true,
+        },
+        validate = { enable = true },
+      },
+    },
+  },
+  bashls = {},
+  rust_analyzer = {},
+  -- html = { filetypes = { 'html', 'twig', 'hbs'} },
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
