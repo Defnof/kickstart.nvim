@@ -26,7 +26,23 @@ return {
     "folke/noice.nvim",
     event = "VeryLazy",
     opts = {
+      views = {
+        notify = {
+          replace = true,
+        },
+      },
       lsp = {
+        progress = {
+          enabled = true,
+          -- Lsp Progress is formatted using the builtins for lsp_progress. See config.format.builtin
+          -- See the section on formatting for more details on how to customize.
+          --- @type NoiceFormat|string
+          format = "lsp_progress",
+          --- @type NoiceFormat|string
+          format_done = "lsp_progress_done",
+          throttle = 1000 / 30, -- frequency to update lsp progress message
+          view = "notify",
+        },
         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
@@ -67,6 +83,11 @@ return {
         theme = 'catppuccin',
         component_separators = '|',
         section_separators = { left = '', right = '' },
+        sections = {
+          lualine_c = {
+            'lsp_progress'
+          }
+        }
       },
     },
   },
@@ -74,6 +95,8 @@ return {
   {
     -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
+    -- TODO: Fix style first
+    enabled = false,
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help ibl`
     main = 'ibl',
