@@ -43,14 +43,46 @@ return {
   },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  {
+    'numToStr/Comment.nvim',
+    keys = {
+      {
+        "<leader>/",
+        function()
+          require("Comment.api").toggle.linewise.current()
+        end,
+        mode = "n"
+      },
+      {
+        "<leader>/",
+        "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
+        mode = "v"
+      }
+    },
+    opts = {
+      mappings = {
+        ---Operator-pending mapping; `gcc` `gbc` `gc[count]{motion}` `gb[count]{motion}`
+        basic = false,
+        ---Extra mapping; `gco`, `gcO`, `gcA`
+        extra = false,
+      },
+    }
+  },
 
   {
     'stevearc/conform.nvim',
     opts = {
-      lua = { "stylua" },
-      -- Use a sub-list to run only the first available formatter
-      javascript = { { "biome", } },
+      formatters_by_ft = {
+        lua = { "stylua" },
+        -- Use a sub-list to run only the first available formatter
+        javascript = { "biome", },
+        typescript = { "biome", },
+        -- Use the "*" filetype to run formatters on all filetypes.
+        ["*"] = { "codespell" },
+        -- Use the "_" filetype to run formatters on filetypes that don't
+        -- have other formatters configured.
+        ["_"] = { "trim_whitespace" },
+      },
       format_on_save = {
         -- These options will be passed to conform.format()
         timeout_ms = 500,
