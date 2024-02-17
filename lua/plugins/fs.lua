@@ -11,6 +11,22 @@ return {
         desc = 'Toggle NvimTree',
       },
     },
-    opts = {},
+    opts = {
+      disable_netrw = true,
+      update_focused_file = { enable = true, update_root = true, },
+      sort = {
+        sorter = "case_sensitive",
+      },
+      view = {
+        width = 30,
+      },
+      renderer = {
+        root_folder_label = false,
+        group_empty = true,
+      },
+      filters = {
+        dotfiles = true,
+      },
+    },
   },
 }
