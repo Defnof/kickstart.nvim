@@ -1,15 +1,25 @@
 -- [[ Basic Keymaps ]]
+local M = require('utils.mapping')
+local map = M.map
+local nmap = M.nmap
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
-vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+map({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- Remap for dealing with word wrap
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+nmap('k', "v:count == 0 ? 'gk' : 'k'", "", { expr = true, silent = true })
+nmap('j', "v:count == 0 ? 'gj' : 'j'", "", { expr = true, silent = true })
 
--- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+-- Quit and Save
+nmap('<leader>s', '<CMD>w<CR>', "[S]ave Buffer")
+nmap('<A-q>', '<CMD>qa!<CR>', "[Q]uit Kickstart")
+
+-- toggle relative numbers
+nmap('<leader>rn', function()
+  vim.o.signcolumn = vim.o.signcolumn == "yes" and "no" or "yes"
+  vim.o.relativenumber = not vim.o.relativenumber
+end, 'Toggle [R]elative [N]umbers')
+
+-- Map : to ; for faster CMD-ing
+nmap(';', ':', '', {nowait = true})
