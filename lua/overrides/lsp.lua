@@ -41,11 +41,6 @@ local map_keybinds = function(bufnr)
   nmap(']d', vim.diagnostic.goto_next, 'Go to next [d]iagnostic message')
   nmap('<leader>e', vim.diagnostic.open_float, 'Open floating diagnostic messag[e]')
   nmap('<leader>q', vim.diagnostic.setloclist, 'Open diagnostics list')
-
-  -- Create a command `:Format` local to the LSP buffer
-  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-    vim.lsp.buf.format()
-  end, { desc = 'Format current buffer with LSP' })
 end
 
 
