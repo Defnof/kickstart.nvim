@@ -14,6 +14,7 @@ nmap('j', "v:count == 0 ? 'gj' : 'j'", "", { expr = true, silent = true })
 -- Quit and Save
 nmap('<leader>s', '<CMD>w<CR>', "[S]ave Buffer")
 nmap('<A-q>', '<CMD>qa!<CR>', "[Q]uit Kickstart")
+nmap('<C-c>', "<cmd> %y+ <CR>", "[C]opy File")
 
 -- toggle relative numbers
 nmap('<leader>rn', function()
@@ -22,4 +23,35 @@ nmap('<leader>rn', function()
 end, 'Toggle [R]elative [N]umbers')
 
 -- Map : to ; for faster CMD-ing
-nmap(';', ':', '', {nowait = true})
+nmap(';', ':', '', { nowait = true })
+
+-- new File
+nmap("<leader>b", "<cmd> enew <CR>", "New [B]uffer")
+
+-- Helper for multiple window bindings
+local wmap = function(direction, key)
+  nmap('<C-' .. key .. ">", "<C-w>" .. key, "Window " .. direction)
+end
+
+-- Movement
+wmap('h', "Left");
+wmap('l', "Right");
+wmap('j', "Down");
+wmap('k', "Up");
+
+-- toggle comment in both modes
+-- n = {
+--   ["<leader>/"] = {
+--     function()
+--       require("Comment.api").toggle.linewise.current()
+--     end,
+--     "Toggle comment",
+--   },
+-- },
+--
+-- v = {
+--   ["<leader>/"] = {
+--     "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
+--     "Toggle comment",
+--   },
+-- },
