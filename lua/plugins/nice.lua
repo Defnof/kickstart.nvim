@@ -17,6 +17,7 @@ return {
         ['<leader>f'] = { name = '[F]ind', _ = 'which_key_ignore' },
         ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
         ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
+        ['<leader>S'] = { name = '[S]ession', _ = 'which_key_ignore' },
       }
       -- register which-key VISUAL mode
       -- required for visual <leader>hs (hunk stage) to work

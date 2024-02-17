@@ -13,6 +13,17 @@ return {
   },
   {
     "Shatur/neovim-session-manager",
+    keys = {
+      {
+        "<leader>Sl", "<cmd>SessionManager load_last_session<CR>", desc = "[L]oad last session"
+      },
+      {
+        "<leader>Ss", "<cmd>SessionManager save_curent_session<CR>", desc = "[S]ave session"
+      },
+      {
+        "<leader>So", "<cmd>SessionManager load_session<CR>", desc = "L[o]ad session"
+      },
+    },
     config = function(opts)
       local session_manager = require('session_manager')
       -- Auto save session
