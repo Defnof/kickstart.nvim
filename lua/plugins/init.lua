@@ -26,6 +26,16 @@ return {
     },
     config = function(opts)
       local session_manager = require('session_manager')
+      local config_group = vim.api.nvim_create_augroup('SessionGroup', {}) -- A global group for all your config autocommands
+
+      vim.api.nvim_create_autocmd({ 'User' }, {
+        pattern = "SessionLoadPost",
+        group = config_group,
+        callback = function()
+          require('nvim-tree.api').tree.toggle(false, true)
+        end,
+      })
+
       -- Auto save session
       vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
         callback = function()
