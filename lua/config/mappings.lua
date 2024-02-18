@@ -28,16 +28,11 @@ nmap(';', ':', '', { nowait = true })
 -- new File
 nmap("<leader>b", "<cmd> enew <CR>", "New [B]uffer")
 
--- Helper for multiple window bindings
-local wmap = function(direction, key)
-  nmap('<C-' .. key .. ">", "<C-w>" .. key, "Window " .. direction)
-end
-
 -- Movement
-wmap('h', "Left");
-wmap('l', "Right");
-wmap('j', "Down");
-wmap('k', "Up");
+nmap('<C-h>', "<C-w>h", "Window Left");
+nmap('<C-l>', "<C-w>l", "Window Right");
+nmap('<C-j>', "<C-w>j", "Window Down");
+nmap('<C-k>', "<C-w>k", "Window Up");
 
 -- toggle comment in both modes
 -- n = {
