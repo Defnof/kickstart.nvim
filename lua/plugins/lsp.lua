@@ -67,9 +67,9 @@ return {
 
   {
     'stevearc/conform.nvim',
-    event = { "BufWritePre" },
-    cmd   = { "ConformInfo" },
-    keys  = {
+    event  = { "BufWritePre" },
+    cmd    = { "ConformInfo" },
+    keys   = {
       {
         "<leader>cf",
         function()
@@ -77,8 +77,15 @@ return {
         end,
         desc = "[C]ode [F]ormat"
       },
+      {
+        "<leader>cT",
+        function()
+          vim.g.autoformat = not vim.g.autoformat
+        end,
+        desc = "[C]ode [T]oggle Formatting",
+      }
     },
-    opts  = {
+    opts   = {
       formatters_by_ft = {
         lua = { "stylua" },
         -- Use a sub-list to run only the first available formatter
@@ -90,12 +97,23 @@ return {
         -- have other formatters configured.
         ["_"] = { "trim_whitespace" },
       },
-      format_on_save = {
-        -- These options will be passed to conform.format()
-        timeout_ms = 500,
-        lsp_fallback = true,
-      },
+      format_on_save = function()
+        if not vim.g.autoformat then
+          return
+        end
+
+        return {
+          -- These options will be passed to conform.format()
+          timeout_ms = 500,
+          lsp_fallback = true,
+        }
+      end,
     },
+    config = function(_, opts)
+      -- NOTE: Enable formatting by default
+      vim.g.autoformat = true
+      require('conform').setup(opts)
+    end
   },
 
   {
