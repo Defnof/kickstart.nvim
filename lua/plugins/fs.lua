@@ -11,30 +11,22 @@ return {
         desc = 'Toggle NvimTree',
       },
     },
-    opts = {},
-  },
-
-  -- NOTE: Backend for ranger, run ranger in nvim
-  {
-    'kevinhwang91/rnvimr',
-    keys = {
-      {
-        '<A-f>',
-        '<cmd>RnvimrToggle<CR>',
-        desc = 'Toggle Ranger',
+    opts = {
+      disable_netrw = true,
+      update_focused_file = { enable = true, update_root = true, },
+      sort = {
+        sorter = "case_sensitive",
+      },
+      view = {
+        width = 30,
+      },
+      renderer = {
+        root_folder_label = false,
+        group_empty = true,
+      },
+      filters = {
+        dotfiles = true,
       },
     },
-  },
-
-  {
-    'stevearc/oil.nvim',
-    opts = {},
-    keys = { {
-      '-',
-      '<cmd>Oil<CR>',
-      desc = 'Open parent directory',
-    } },
-    -- Optional dependencies
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
   },
 }
