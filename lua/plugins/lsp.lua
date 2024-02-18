@@ -165,6 +165,34 @@ return {
         -- require "workspace-diagnostics".populate_workspace_diagnostics(client, bufnr)
       end
     },
-  }
+  },
 
+  {
+    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    event = "LspAttach",
+    keys = {
+      {
+        "<Leader>cl",
+        function()
+          local lines = require "lsp_lines"
+          lines.toggle()
+
+          local virtual_lines_config = vim.diagnostic.config()
+              .virtual_lines -- Disable virtual_text since it's redundant due to lsp_lines.
+          vim.diagnostic.config {
+            virtual_text = not virtual_lines_config,
+          }
+        end,
+        desc = "Toggle [C]ode LSP [l]ines",
+      },
+    },
+    config = function(_, opts)
+      require("lsp_lines").setup(opts)
+
+      local virtual_lines_config = vim.diagnostic.config()
+      vim.diagnostic.config {
+        virtual_text = not virtual_lines_config,
+      }
+    end,
+  },
 }
