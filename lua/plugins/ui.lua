@@ -109,17 +109,21 @@ return {
     'nvim-lualine/lualine.nvim',
     -- See `:help lualine.txt`
     opts = {
+      sections = {
+        lualine_a = { 'mode' },
+        lualine_b = { 'branch' },
+        lualine_c = { 'filename', 'encoding' },
+        lualine_x = {},
+        lualine_y = { 'diagnostics', },
+        lualine_z = { { 'filetype', colored = false, }
+        }
+      },
       extensions = { 'fzf', 'lazy', 'nvim-tree', 'symbols-outline', 'toggleterm', 'trouble', },
       options = {
         icons_enabled = true,
         theme = 'catppuccin',
         component_separators = '|',
         section_separators = { left = '', right = '' },
-        sections = {
-          lualine_c = {
-            'lsp_progress'
-          }
-        }
       },
     },
   },
