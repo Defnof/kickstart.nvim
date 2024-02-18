@@ -43,6 +43,20 @@ require "config.lazy"
 require 'config.vim'
 require 'config.mappings'
 
+local autocmd = vim.api.nvim_create_autocmd
+local augroup = vim.api.nvim_create_augroup
+local get_window_config = vim.api.nvim_win_get_config
+
+autocmd("WinEnter", {
+  callback = function()
+    local floating = get_window_config(0).relative ~= ""
+    vim.diagnostic.config {
+      virtual_text = floating,
+      virtual_lines = not floating,
+    }
+  end,
+})
+
 local parse_highlight = function()
   local highlights = require "config.highlights"
 
@@ -52,21 +66,19 @@ local parse_highlight = function()
 end
 
 
-vim.api.nvim_create_autocmd('ColorScheme', {
+autocmd('ColorScheme', {
   callback = function()
     parse_highlight()
   end
 })
 
-
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
-vim.api.nvim_create_autocmd('TextYankPost', {
+autocmd('TextYankPost', {
   callback = function()
     vim.highlight.on_yank()
   end,
-  group = highlight_group,
+  group = augroup('YankHighlight', { clear = true }),
   pattern = '*',
 })
 -- The line beneath this is called `modeline`. See `:help modeline`
