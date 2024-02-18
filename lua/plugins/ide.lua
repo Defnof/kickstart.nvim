@@ -382,7 +382,7 @@ return {
           ---@return boolean True if active, false otherwise
           require("symbol-usage").toggle()
         end,
-        desc = "Toggle [c]ode [S]ymbols",
+        desc = "Toggle [C]ode [S]ymbols",
       },
     },
     config = function(_, opts)
