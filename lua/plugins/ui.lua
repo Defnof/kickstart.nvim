@@ -110,9 +110,33 @@ return {
     -- See `:help lualine.txt`
     opts = {
       sections = {
-        lualine_a = { 'mode' },
-        lualine_b = { 'branch' },
-        lualine_c = { 'filename', 'encoding' },
+        lualine_a = {
+          {
+            'filename',
+            path = 4,
+            symbols = {
+              modified = '', -- Text to show when the file is modified.
+              readonly = '', -- Text to show when the file is non-modifiable or readonly.
+              unnamed = '󰃮', -- Text to show for unnamed buffers.
+              newfile = '', -- Text to show for newly created file before first write
+            }
+          }
+        },
+        lualine_b = {
+          -- Override 'encoding': Don't display if encoding is UTF-8.
+          function()
+            local ret, _ = (vim.bo.fenc or vim.go.enc):gsub("^utf%-8$", "")
+            return ret
+          end,
+
+          -- fileformat: Don't display if &ff is unix.
+          function()
+            local ret, _ = vim.bo.fileformat:gsub("^unix$", "")
+            return ret
+          end,
+          'location'
+        },
+        lualine_c = { { 'branch', cond = function() return vim.fn.winwidth(0) > 120 end }, 'diff' },
         lualine_x = {},
         lualine_y = { 'diagnostics', },
         lualine_z = { { 'filetype', colored = false, }
@@ -122,19 +146,36 @@ return {
       options = {
         icons_enabled = true,
         theme = 'catppuccin',
-        component_separators = '|',
+        component_separators = '',
         section_separators = { left = '', right = '' },
       },
     },
   },
 
   {
+    "rasulomaroff/reactive.nvim",
+    -- WARN: reactive broke via vimdoc update keep at v1 for now
+    tag = "v1.0.0",
+    event = "VeryLazy",
+    config = function()
+      require('reactive').setup {
+        load = { 'catppuccin-macchiato-cursor', 'catppuccin-macchiato-cursorline' }
+      }
+    end,
+  },
+
+  {
+    "HiPhish/rainbow-delimiters.nvim",
+    event = "VeryLazy",
+    config = function(_, opts)
+      require("rainbow-delimiters.setup").setup(opts)
+    end,
+  },
+
+  {
     -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
-    -- TODO: Fix style first
     enabled = true,
-    -- Enable `lukas-reineke/indent-blankline.nvim`
-    -- See `:help ibl`
     main = 'ibl',
     opts = {},
   },
