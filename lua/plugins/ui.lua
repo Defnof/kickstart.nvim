@@ -63,7 +63,8 @@ return {
       },
       lsp = {
         progress = {
-          enabled = true,
+          -- enabled = true,
+          enabled = false,
           -- Lsp Progress is formatted using the builtins for lsp_progress. See config.format.builtin
           -- See the section on formatting for more details on how to customize.
           --- @type NoiceFormat|string
@@ -107,6 +108,40 @@ return {
   {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
+    dependencies = {
+      { 'dokwork/lualine-ex' },
+      {
+        "epwalsh/pomo.nvim",
+        version = "*", -- Recommended, use latest release instead of latest commit
+        lazy = true,
+        cmd = { "TimerStart", "TimerRepeat" },
+        keys = {
+          {
+            "<leader>pt",
+            function()
+              local pomo = require "pomo"
+
+              local timer = pomo.get_first_to_finish()
+              if timer == nil then
+                return "<CMD>TimerStart 25m Work<CR>"
+              end
+
+              return "<CMD>TimerStop<CR>"
+            end,
+            desc = "Toggle [P]omodoro [T]imer"
+          },
+        },
+        dependencies = {
+          -- Optional, but highly recommended if you want to use the "Default" timer
+          "rcarriga/nvim-notify",
+        },
+        opts = {
+          -- See below for full list of options 👇
+        },
+      },
+      { 'archibate/lualine-time' },
+      { 'arkav/lualine-lsp-progress' }
+    },
     -- See `:help lualine.txt`
     opts = {
       sections = {
@@ -137,10 +172,48 @@ return {
           'location'
         },
         lualine_c = { { 'branch', cond = function() return vim.fn.winwidth(0) > 120 end }, 'diff' },
-        lualine_x = {},
-        lualine_y = { 'diagnostics', },
-        lualine_z = { { 'filetype', colored = false, }
-        }
+        lualine_x = {
+          {
+            'lsp_progress',
+            colors = {
+              use = true,
+            },
+            display_components = { { 'title', 'percentage', 'message' } },
+          },
+          { 'diagnostics', }
+        },
+        lualine_y = {
+          {
+            'ex.lsp.all',
+            only_attached = true,
+
+            -- If true then every closed client will be echoed:
+            notify_enabled = true,
+
+            -- The name of highlight group which should be used in echo:
+            notify_hl = 'Comment'
+          },
+        },
+        lualine_z = {
+          {
+            function()
+              local ok, pomo = pcall(require, "pomo")
+              if not ok then
+                return ""
+              end
+
+              local timer = pomo.get_first_to_finish()
+              if timer == nil then
+                return ""
+              end
+
+              return "󰄉 " .. tostring(timer)
+            end,
+          },
+          { 'ctime' },
+        },
+        -- lualine_z = { { 'filetype', colored = false, }
+        -- }
       },
       inactive_sections = {
         lualine_a = {
@@ -164,6 +237,7 @@ return {
         icons_enabled = true,
         theme = 'catppuccin',
         component_separators = '',
+        -- component_separators = { left = '', right = ''},
         section_separators = { left = '', right = '' },
       },
     },
