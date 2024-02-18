@@ -68,7 +68,7 @@ return {
         "<leader>pl", "<cmd>SessionManager load_last_session<CR>", desc = "[L]oad last project"
       },
       {
-        "<leader>ps", "<cmd>SessionManager save_curent_session<CR>", desc = "[S]ave project"
+        "<leader>ps", "<cmd>SessionManager save_current_session<CR>", desc = "[S]ave project"
       },
       {
         "<leader>po", "<cmd>SessionManager load_session<CR>", desc = "L[o]ad [p]roject"
