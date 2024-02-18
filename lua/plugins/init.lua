@@ -21,10 +21,10 @@ return {
       }
       startify.section.top_buttons.val = {
         startify.button("e", "  N[e]w file", ":ene <BAR> startinsert <CR>"),
-        startify.button("f", "󰈞  [F]ind file", ":ene <BAR> startinsert <CR>"),
-        startify.button("g", "󰜏  [G]rep project", ":ene <BAR> startinsert <CR>"),
-        startify.button("s", "  [S]how session", "<cmd>SessionManager load_session <CR>"),
-        startify.button("l", "  [L]oad last session", "<cmd>SessionManager load_last_session <CR>"),
+        startify.button("f", "󰈞  [F]ind file", "Telescope find_files<CR>"),
+        startify.button("g", "󰜏  [G]rep project", "Telescope live_grep"),
+        startify.button("p", "  Load [P]rojects", "<cmd>SessionManager load_session <CR>"),
+        startify.button("l", "  [L]oad last project", "<cmd>SessionManager load_last_session <CR>"),
       }
       -- disable MRU
       startify.section.mru.val = { { type = "padding", val = 0 } }
