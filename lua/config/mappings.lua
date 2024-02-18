@@ -28,25 +28,13 @@ nmap(';', ':', '', { nowait = true })
 -- new File
 nmap("<leader>b", "<cmd> enew <CR>", "New [B]uffer")
 
+-- buffer manip
+nmap("<leader>x", "<cmd> q <CR>", "[x] Close buffer")
+nmap("<C-n>", "<cmd> bn <CR>", "[N]ext buffer")
+nmap("<C-p>", "<cmd> bp <CR>", "[P]rev buffer")
+
 -- Movement
 nmap('<C-h>', "<C-w>h", "Window Left");
 nmap('<C-l>', "<C-w>l", "Window Right");
 nmap('<C-j>', "<C-w>j", "Window Down");
 nmap('<C-k>', "<C-w>k", "Window Up");
-
--- toggle comment in both modes
--- n = {
---   ["<leader>/"] = {
---     function()
---       require("Comment.api").toggle.linewise.current()
---     end,
---     "Toggle comment",
---   },
--- },
---
--- v = {
---   ["<leader>/"] = {
---     "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
---     "Toggle comment",
---   },
--- },
