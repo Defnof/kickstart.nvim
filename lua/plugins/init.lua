@@ -7,11 +7,9 @@ return {
     'goolord/alpha-nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
-      local Path = require('plenary.path')
       local alpha = require 'alpha'
-      local startify = require 'alpha.themes.startify'
-      startify_session_dir = Path:new(vim.fn.stdpath('data'), 'sessions')
-      startify.section.header.val = {
+      local alpha_config = require 'alpha.themes.startify'
+      alpha_config.section.header.val = {
         [[                                   __                ]],
         [[      ___     ___    ___   __  __ /\_\    ___ ___    ]],
         [[     / _ `\  / __`\ / __`\/\ \/\ \\/\ \  / __` __`\  ]],
@@ -19,40 +17,26 @@ return {
         [[    \ \_\ \_\ \____\ \____/\ \___/  \ \_\ \_\ \_\ \_\]],
         [[     \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
       }
-      startify.section.top_buttons.val = {
-        startify.button("e", "  N[e]w file", ":ene <BAR> startinsert <CR>"),
-        startify.button("f", "󰈞  [F]ind file", "Telescope find_files<CR>"),
-        startify.button("g", "󰜏  [G]rep project", "Telescope live_grep"),
-        startify.button("p", "  Load [P]rojects", "<cmd>SessionManager load_session <CR>"),
-        startify.button("l", "  [L]oad last project", "<cmd>SessionManager load_last_session <CR>"),
+      alpha_config.section.top_buttons.val = {
+        alpha_config.button("e", "  N[e]w file", ":ene <BAR> startinsert <CR>"),
+        alpha_config.button("f", "󰈞  [F]ind file", "Telescope find_files<CR>"),
+        alpha_config.button("g", "󰜏  [G]rep project", "Telescope live_grep"),
+        alpha_config.button("p", "  Load [P]rojects", "<cmd>SessionManager load_session <CR>"),
+        alpha_config.button("l", "  [L]oad last project", "<cmd>SessionManager load_last_session <CR>"),
       }
       -- disable MRU
-      startify.section.mru.val = { { type = "padding", val = 0 } }
-      -- disable MRU cwd
-      startify.section.mru_cwd.val = { { type = "padding", val = 0 } }
-      -- disable nvim_web_devicons
-      startify.nvim_web_devicons.enabled = true
-      -- startify.nvim_web_devicons.highlight = false
-      -- startify.nvim_web_devicons.highlight = 'Keyword'
+      alpha_config.section.mru.val = {}
+      alpha_config.section.mru_cwd.val = {}
+      alpha_config.nvim_web_devicons.enabled = true
       --
-      startify.section.bottom_buttons.val = {
+      alpha_config.section.bottom_buttons.val = {
         -- TODO: Finish implementation using MRU or other
-        startify.button("L", "󰂖  [L]azy Plugins", "<Cmd>Lazy<CR>"),
-        startify.button("c", "  Open [C]onfig", ":e $MYVIMRC | :cd %:p:h | split . | wincmd k | pwd<CR>"),
-        startify.button("q", "󰅚  Quit NVIM", ":qa<CR>"),
+        alpha_config.button("L", "󰂖  [L]azy Plugins", "<Cmd>Lazy<CR>"),
+        alpha_config.button("c", "  Open [C]onfig", ":e $MYVIMRC | :cd %:p:h | split . | wincmd k | pwd<CR>"),
+        alpha_config.button("q", "󰅚  Quit NVIM", ":qa<CR>"),
       }
-      -- startify.section.footer.val = {
-      --   { type = "text", val = "by Defnof" },
-      -- }
-      -- ignore filetypes in MRU
 
-      startify.mru_opts.ignore = function(path, ext)
-        return
-            (string.find(path, "COMMIT_EDITMSG"))
-            or (vim.tbl_contains(default_mru_ignore, ext))
-      end
-
-      startify.config.opts.setup = function()
+      alpha_config.config.opts.setup = function()
         vim.api.nvim_create_autocmd("User", {
           pattern = "AlphaReady",
           desc = "Disable status and tabline for alpha",
@@ -71,7 +55,7 @@ return {
         })
       end
 
-      alpha.setup(startify.config)
+      alpha.setup(alpha_config.config)
     end
   },
   {
