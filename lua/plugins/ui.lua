@@ -193,6 +193,20 @@ return {
             -- The name of highlight group which should be used in echo:
             notify_hl = 'Comment'
           },
+          -- NOTE: Formatter toggle
+          function()
+            local ok = pcall(require, "conform")
+
+            if not ok then
+              return ""
+            end
+
+            if not vim.g.autoformat then
+              return ""
+            end
+
+            return "󰉢" .. " conform "
+          end,
         },
         lualine_z = {
           {
