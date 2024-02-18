@@ -94,7 +94,14 @@ return {
       "MunifTanjim/nui.nvim",
     },
   },
-  { "artemave/workspace-diagnostics.nvim", event = "VeryLazy" },
+  {
+    "artemave/workspace-diagnostics.nvim",
+    event = "VeryLazy",
+    opts = {},
+    config = function(_, opts)
+      require("workspace-diagnostics").setup(opts)
+    end
+  },
   {
     "chrisgrieser/nvim-rulebook",
     keys = {
@@ -237,17 +244,160 @@ return {
     },
   },
   {
-    "simrat39/symbols-outline.nvim",
-    enabled = false,
+    "kevinhwang91/nvim-ufo",
     event = "VeryLazy",
+    dependencies = "kevinhwang91/promise-async",
+    opts = {
+      open_fold_hl_timeout = 150,
+      close_fold_kinds = { "imports", "comment" },
+      preview = {
+        win_config = {
+          border = { "", "─", "", "", "", "─", "", "" },
+          winhighlight = "Normal:Folded",
+          winblend = 0,
+        },
+        mappings = {
+          scrollU = "<C-u>",
+          scrollD = "<C-d>",
+          jumpTop = "[",
+          jumpBot = "]",
+        },
+      },
+      provider_selector = function(bufnr, filetype, buftype)
+        local ftMap = {
+          vim = "indent",
+          python = { "indent" },
+          git = "",
+        }
+        -- if you prefer treesitter provider rather than lsp,
+        -- return ftMap[filetype] or {'treesitter', 'indent'}
+        return ftMap[filetype]
+
+        -- refer to ./doc/example.lua for detail
+      end,
+      fold_virt_text_handler = function(virtText, lnum, endLnum, width, truncate)
+        local newVirtText = {}
+        local suffix = (" 󰁂 %d "):format(endLnum - lnum)
+        local sufWidth = vim.fn.strdisplaywidth(suffix)
+        local targetWidth = width - sufWidth
+        local curWidth = 0
+        for _, chunk in ipairs(virtText) do
+          local chunkText = chunk[1]
+          local chunkWidth = vim.fn.strdisplaywidth(chunkText)
+          if targetWidth > curWidth + chunkWidth then
+            table.insert(newVirtText, chunk)
+          else
+            chunkText = truncate(chunkText, targetWidth - curWidth)
+            local hlGroup = chunk[2]
+            table.insert(newVirtText, { chunkText, hlGroup })
+            chunkWidth = vim.fn.strdisplaywidth(chunkText)
+            -- str width returned from truncate() may less than 2nd argument, need padding
+            if curWidth + chunkWidth < targetWidth then
+              suffix = suffix .. (" "):rep(targetWidth - curWidth - chunkWidth)
+            end
+            break
+          end
+          curWidth = curWidth + chunkWidth
+        end
+        table.insert(newVirtText, { suffix, "MoreMsg" })
+        return newVirtText
+      end,
+    },
+    config = function(_, opts)
+      vim.o.foldcolumn = "0" -- '0' is not bad
+      vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
+      vim.o.foldlevelstart = 99
+      vim.o.foldenable = true
+      require("ufo").setup(opts)
+    end,
+  },
+  {
+    "Wansmer/symbol-usage.nvim",
+    enabled = true,
+    event = "BufReadPre", -- need run before LspAttach if you use nvim 0.9. On 0.10 use 'LspAttach'
+    opts = {
+      ---@type table<string, any> `nvim_set_hl`-like options for highlight virtual text
+      hl = { link = "Comment" },
+      ---Additional filter for kinds. Recommended use in the filetypes override table.
+      ---fiterKind: function(data: { symbol:table, parent:table, bufnr:integer }): boolean
+      ---`symbol` and `parent` is an item from `textDocument/documentSymbol` request
+      ---See: #filter-kinds
+      ---@type table<lsp.SymbolKind, filterKind[]>
+      kinds_filter = {},
+      ---@type 'above'|'end_of_line'|'textwidth' above by default
+      vt_position = "above",
+      ---Text to display when request is pending. If `false`, extmark will not be
+      ---created until the request is finished. Recommended to use with `above`
+      ---vt_position to avoid "jumping lines".
+      ---@type string|table|false
+      request_pending_text = "loading...",
+      ---The function can return a string to which the highlighting group from `opts.hl` is applied.
+      ---Alternatively, it can return a table of tuples of the form `{ { text, hl_group }, ... }`` - in this case the specified groups will be applied.
+      ---See `#format-text-examples`
+      -- text_format = function(symbol) end,
+      references = { enabled = true, include_declaration = false },
+      definition = { enabled = true },
+      implementation = { enabled = true },
+      ---@type { lsp?: string[], filetypes?: string[] } Disables `symbol-usage.nvim' on certain LSPs or file types.
+      disable = { lsp = {}, filetypes = { "lua" } },
+      ---@type UserOpts[] See default overridings in `lua/symbol-usage/langs.lua`
+      -- filetypes = {},
+      ---@type 'start'|'end' At which position of `symbol.selectionRange` the request to the lsp server should start. Default is `end` (try changing it to `start` if the symbol counting is not correct).
+      symbol_request_pos = "start", -- Recommended redifine only in `filetypes` override table
+      text_format = function(symbol)
+        local fragments = {}
+        local sep = { "", "" }
+
+        if symbol.references then
+          table.insert(fragments, { sep[1], "SymbolUsageRefRound" })
+          table.insert(fragments, { "󰌹 " .. tostring(symbol.references), "SymbolUsageRef" })
+          table.insert(fragments, { sep[2], "SymbolUsageRefRound" })
+        end
+
+        if symbol.definition then
+          if #fragments > 0 then
+            table.insert(fragments, { " ", "NonText" })
+          end
+          table.insert(fragments, { sep[1], "SymbolUsageDefRound" })
+          table.insert(fragments, { "󰳽 " .. tostring(symbol.definition), "SymbolUsageDef" })
+          table.insert(fragments, { sep[2], "SymbolUsageDefRound" })
+        end
+
+        if symbol.implementation then
+          if #fragments > 0 then
+            table.insert(fragments, { " ", "NonText" })
+          end
+          table.insert(fragments, { sep[1], "SymbolUsageImplRound" })
+          table.insert(fragments, { "󰡱 " .. tostring(symbol.implementation), "SymbolUsageImpl" })
+          table.insert(fragments, { sep[2], "SymbolUsageImplRound" })
+        end
+
+        return fragments
+      end,
+    },
     keys = {
       {
-        "<A-s>",
-        "<cmd>SymbolsOutline<CR>",
-        desc = "Toggle [S]ymbols",
+        "<leader>cS",
+        function()
+          ---@return boolean True if active, false otherwise
+          require("symbol-usage").toggle()
+        end,
+        desc = "Toggle [c]ode [S]ymbols",
       },
     },
-    config = true,
+    config = function(_, opts)
+      local function h(name) return vim.api.nvim_get_hl(0, { name = name }) end
+
+      vim.api.nvim_set_hl(0, 'SymbolUsageRef', { bg = h('Type').fg, fg = h('CursorLine').bg, bold = true })
+      vim.api.nvim_set_hl(0, 'SymbolUsageRefRound', { fg = h('Type').fg })
+
+      vim.api.nvim_set_hl(0, 'SymbolUsageDef', { bg = h('Function').fg, fg = h('CursorLine').bg, bold = true })
+      vim.api.nvim_set_hl(0, 'SymbolUsageDefRound', { fg = h('Function').fg })
+
+      vim.api.nvim_set_hl(0, 'SymbolUsageImpl', { bg = h('@parameter').fg, fg = h('CursorLine').bg, bold = true })
+      vim.api.nvim_set_hl(0, 'SymbolUsageImplRound', { fg = h('@parameter').fg })
+      require('symbol-usage').setup(opts)
+    end
   },
   {
     "utilyre/barbecue.nvim",
@@ -308,6 +458,7 @@ return {
       "nvim-tree/nvim-web-devicons", -- optional dependency
     },
     opts = {
+      theme = "catppuccin-macchiato",
       -- configurations go here
       symbols = {
         -- NOTE: Add a much better icon via nerdfonts
@@ -359,7 +510,7 @@ return {
       {
         "<leader>tx",
         "<cmd>TroubleToggle quickfix<CR>",
-        desc = "[T]rouble Fix",
+        desc = "Trouble Fi[x]",
       },
     },
     opts = {},

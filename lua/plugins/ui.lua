@@ -13,6 +13,36 @@ return {
     'catppuccin/nvim',
     name = 'catppuccin',
     priority = 1000,
+    opts = {
+      integrations = {
+        cmp = true,
+        gitsigns = true,
+        nvimtree = true,
+        treesitter = true,
+        notify = true,
+        alpha = true,
+        flash = true,
+        barbecue = {
+          dim_dirname = true, -- directory name is dimmed by default
+          bold_basename = true,
+          dim_context = false,
+          alt_background = false,
+        },
+        mini = {
+          enabled = false,
+          indentscope_color = "",
+        },
+        indent_blankline = {
+          enabled = true,
+          scope_color = "", -- catppuccin color (eg. `lavender`) Default: text
+          colored_indent_levels = false,
+        },
+        noice = true,
+        ufo = true,
+        lsp_trouble = true,
+        which_key = true
+      }
+    },
     config = function()
       require("catppuccin").setup({
         flavour = "macchiato",
@@ -98,7 +128,7 @@ return {
     -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
     -- TODO: Fix style first
-    enabled = false,
+    enabled = true,
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help ibl`
     main = 'ibl',

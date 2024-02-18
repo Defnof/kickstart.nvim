@@ -13,10 +13,6 @@ return {
       { 'williamboman/mason.nvim', config = true },
       'williamboman/mason-lspconfig.nvim',
 
-      -- Useful status updates for LSP
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      -- { 'j-hui/fidget.nvim', opts = {} },
-
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
     },
@@ -112,4 +108,34 @@ return {
     },
     build = ':TSUpdate',
   },
+
+  -- NOTE: TS
+  {
+    "dmmulroy/tsc.nvim",
+    cmd = "TSC",
+    ft = { "typescript", "typescriptreact" },
+    keys = {
+      {
+        "<leader>ct", "<CMD>TSC<CR>", desc = "[C]ode [T]ype checking",
+      }
+    },
+    opts = {
+      flags = {
+        build = true,
+      },
+    },
+  },
+
+  {
+    "pmizio/typescript-tools.nvim",
+    enabled = true,
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    opts = {
+      on_attach = function(client, bufnr)
+        require "utils.mapping".map_lsp_keybinds(bufnr)
+        -- require "workspace-diagnostics".populate_workspace_diagnostics(client, bufnr)
+      end
+    },
+  }
+
 }

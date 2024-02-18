@@ -43,6 +43,22 @@ require "config.lazy"
 require 'config.vim'
 require 'config.mappings'
 
+local parse_highlight = function()
+  local highlights = require "config.highlights"
+
+  for key, value in pairs(highlights) do
+    vim.api.nvim_set_hl(0, key, value)
+  end
+end
+
+
+vim.api.nvim_create_autocmd('ColorScheme', {
+  callback = function()
+    parse_highlight()
+  end
+})
+
+
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
