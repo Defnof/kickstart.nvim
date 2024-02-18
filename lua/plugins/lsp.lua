@@ -67,7 +67,18 @@ return {
 
   {
     'stevearc/conform.nvim',
-    opts = {
+    event = { "BufWritePre" },
+    cmd   = { "ConformInfo" },
+    keys  = {
+      {
+        "<leader>cf",
+        function()
+          require("conform").format({ async = true, lsp_fallback = true })
+        end,
+        desc = "[C]ode [F]ormat"
+      },
+    },
+    opts  = {
       formatters_by_ft = {
         lua = { "stylua" },
         -- Use a sub-list to run only the first available formatter
