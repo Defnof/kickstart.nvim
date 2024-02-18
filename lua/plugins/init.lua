@@ -18,9 +18,9 @@ return {
         [[     \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
       }
       alpha_config.section.top_buttons.val = {
-        alpha_config.button("e", "  N[e]w file", ":ene <BAR> startinsert <CR>"),
-        alpha_config.button("f", "󰈞  [F]ind file", "Telescope find_files<CR>"),
-        alpha_config.button("g", "󰜏  [G]rep project", "Telescope live_grep"),
+        alpha_config.button("e", "  N[e]w file", "<cmd>ene <BAR> startinsert <CR>"),
+        alpha_config.button("f", "󰈞  [F]ind file", "<cmd>Telescope find_files<CR>"),
+        alpha_config.button("g", "󰜏  [G]rep project", "<cmd>Telescope live_grep<CR>"),
         alpha_config.button("p", "  Load [P]rojects", "<cmd>SessionManager load_session <CR>"),
         alpha_config.button("l", "  [L]oad last project", "<cmd>SessionManager load_last_session <CR>"),
       }
@@ -31,9 +31,11 @@ return {
       --
       alpha_config.section.bottom_buttons.val = {
         -- TODO: Finish implementation using MRU or other
-        alpha_config.button("L", "󰂖  [L]azy Plugins", "<Cmd>Lazy<CR>"),
-        alpha_config.button("c", "  Open [C]onfig", ":e $MYVIMRC | :cd %:p:h | split . | wincmd k | pwd<CR>"),
-        alpha_config.button("q", "󰅚  Quit NVIM", ":qa<CR>"),
+        alpha_config.button("L", "󰂖  [L]azy Plugins", "<cmd>Lazy<CR>"),
+        alpha_config.button("u", "󰚰  [U]pdate plugins", "<cmd>Lazy update<CR>"),
+        alpha_config.button("c", "  Open [C]onfig", "<cmd>e $MYVIMRC | :cd %:p:h | split . | wincmd k | pwd<CR>"),
+        alpha_config.button("h", "  Check [h]ealth", "<cmdcheckhealth<CR>"),
+        alpha_config.button("q", "󰅚  [Q]uit", "<cmd>qa<CR>"),
       }
 
       alpha_config.config.opts.setup = function()
