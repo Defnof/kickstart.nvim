@@ -10,3 +10,6 @@ vim.g.loaded_netrwPlugin = 1
 
 -- optionally enable 24-bit colour
 vim.opt.termguicolors = true
+
+-- Enable relative numbers
+vim.o.relativenumber = true

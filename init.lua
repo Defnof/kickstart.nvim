@@ -72,6 +72,19 @@ autocmd('ColorScheme', {
   end
 })
 
+autocmd('InsertEnter', {
+  callback = function()
+    vim.o.relativenumber = false
+  end,
+})
+
+autocmd('InsertLeave', {
+  callback = function()
+    vim.o.relativenumber = true
+  end,
+})
+
+
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 autocmd('TextYankPost', {
