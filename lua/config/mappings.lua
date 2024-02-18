@@ -30,8 +30,6 @@ nmap("<leader>b", "<cmd> enew <CR>", "New [B]uffer")
 
 -- buffer manip
 nmap("<leader>x", "<cmd> q <CR>", "[x] Close buffer")
-nmap("<C-n>", "<cmd> bn <CR>", "[N]ext buffer")
-nmap("<C-p>", "<cmd> bp <CR>", "[P]rev buffer")
 
 -- Movement
 nmap('<C-h>', "<C-w>h", "Window Left");
