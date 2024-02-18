@@ -37,8 +37,8 @@ return {
       --
       startify.section.bottom_buttons.val = {
         -- TODO: Finish implementation using MRU or other
-        startify.button("1", "󰛦  Work Project #1", ":qa<CR>"),
-        startify.button("2", "󰛦  Work Project #2", ":qa<CR>"),
+        startify.button("L", "󰂖  [L]azy Plugins", "<Cmd>Lazy<CR>"),
+        startify.button("c", "  Open [C]onfig", ":e $MYVIMRC | :cd %:p:h | split . | wincmd k | pwd<CR>"),
         startify.button("q", "󰅚  Quit NVIM", ":qa<CR>"),
       }
       -- startify.section.footer.val = {
@@ -51,6 +51,26 @@ return {
             (string.find(path, "COMMIT_EDITMSG"))
             or (vim.tbl_contains(default_mru_ignore, ext))
       end
+
+      startify.config.opts.setup = function()
+        vim.api.nvim_create_autocmd("User", {
+          pattern = "AlphaReady",
+          desc = "Disable status and tabline for alpha",
+          callback = function()
+            vim.go.laststatus = 0
+            vim.opt.showtabline = 0
+          end,
+        })
+        vim.api.nvim_create_autocmd("BufUnload", {
+          buffer = 0,
+          desc = "Enable status and tabline after alpha",
+          callback = function()
+            vim.go.laststatus = 3
+            -- vim.opt.showtabline = 2
+          end,
+        })
+      end
+
       alpha.setup(startify.config)
     end
   },
