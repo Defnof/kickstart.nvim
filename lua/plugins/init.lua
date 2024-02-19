@@ -33,8 +33,8 @@ return {
         -- TODO: Finish implementation using MRU or other
         alpha_config.button("L", "󰂖  [L]azy Plugins", "<cmd>Lazy<CR>"),
         alpha_config.button("u", "󰚰  [U]pdate plugins", "<cmd>Lazy update<CR>"),
-        alpha_config.button("c", "  Open [C]onfig", "<cmd>e $MYVIMRC | :cd %:p:h | split . | wincmd k | pwd<CR>"),
-        alpha_config.button("h", "  Check [h]ealth", "<cmdcheckhealth<CR>"),
+        alpha_config.button("c", "  Open [C]onfig", "<cmd>e $MYVIMRC<CR>"),
+        alpha_config.button("h", "  Check [h]ealth", "<cmd>checkhealth<CR>"),
         alpha_config.button("q", "󰅚  [Q]uit", "<cmd>qa<CR>"),
       }
 
@@ -44,7 +44,6 @@ return {
           desc = "Disable status and tabline for alpha",
           callback = function()
             vim.go.laststatus = 0
-            vim.opt.showtabline = 0
           end,
         })
         vim.api.nvim_create_autocmd("BufUnload", {
@@ -52,7 +51,6 @@ return {
           desc = "Enable status and tabline after alpha",
           callback = function()
             vim.go.laststatus = 3
-            -- vim.opt.showtabline = 2
           end,
         })
       end
