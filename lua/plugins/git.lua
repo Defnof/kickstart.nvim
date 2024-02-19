@@ -2,6 +2,7 @@ return {
   -- Git related plugins
   {
     "kdheepak/lazygit.nvim",
+    enabled = false,
     event = "VeryLazy",
     keys = {
       {
@@ -13,6 +14,24 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
+  },
+
+  {
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim",  -- required
+      "sindrets/diffview.nvim", -- optional - Diff integration
+
+      -- Only one of these is needed, not both.
+      "nvim-telescope/telescope.nvim", -- optional
+      "ibhagwan/fzf-lua",              -- optional
+    },
+    opts = {},
+    keys = {
+      {
+        "<A-g>", "<cmd>Neogit kind=vsplit<CR>", desc = "Neo[g]it",
+      },
+    }
   },
 
   {
