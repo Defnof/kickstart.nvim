@@ -10,7 +10,16 @@ return {
     }
   },
   {
-    "tpope/vim-fugitive"
+    "tpope/vim-fugitive",
+    keys = {
+      {
+        "<leader>hg",
+        function()
+          vim.api.nvim_feedkeys(":G ", "n", true)
+        end,
+        desc = "Activate Fu[g]itive"
+      },
+    }
   },
   { "tpope/vim-rhubarb", },
   { 'tpope/vim-dadbod', },
