@@ -21,6 +21,16 @@ return {
     opts = {},
   },
   {
+    "klen/nvim-test",
+    ft = { "typescript", "javascript" },
+    opts = {},
+    keys = {
+      {
+        "<leader><space>t", "<cmd>TestFile<CR>", desc = "[T]est current file"
+      },
+    }
+  },
+  {
     "vuki656/package-info.nvim",
     ft = "json",
     opts = {
