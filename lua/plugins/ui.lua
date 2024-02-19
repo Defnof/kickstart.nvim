@@ -55,6 +55,18 @@ return {
   {
     "folke/noice.nvim",
     event = "VeryLazy",
+    keys = {
+      {
+        "<leader>nm",
+        "<cmd>Noice<CR>",
+        desc = "[n] Show [m]essages",
+      },
+      {
+        "<leader>nD",
+        "<cmd>Noice dismiss<CR>",
+        desc = "[n] [D]ismiss messages",
+      },
+    },
     opts = {
       views = {
         notify = {

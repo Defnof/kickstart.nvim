@@ -66,7 +66,82 @@ return {
           return vim.fn.executable 'make' == 1
         end,
       },
-      { 'nvim-telescope/telescope-ui-select.nvim' }
+      { 'nvim-telescope/telescope-ui-select.nvim' },
+      {
+        "piersolenski/telescope-import.nvim",
+      }
     },
   },
+
+  {
+    "0x00-ketsu/autosave.nvim",
+    enabled = false,
+    event = { "InsertLeave", "TextChanged" },
+    keys = { {
+      "<leader>an",
+      "<cmd>ASToggle<CR>",
+      desc = "Toggle Auto Save",
+    } },
+    opts = {
+      enable = true,
+      prompt_style = "stdout",
+      prompt_message = function()
+        return "Autosave: saved at " .. vim.fn.strftime "%H:%M:%S"
+      end,
+      events = { "InsertLeave", "TextChanged" },
+      conditions = {
+        exists = true,
+        modifiable = true,
+        filename_is_not = {},
+        filetype_is_not = {},
+      },
+      write_all_buffers = false,
+      debounce_delay = 650,
+    },
+  },
+  {
+    "epwalsh/obsidian.nvim",
+    enabled = false,
+    event = "VeryLazy",
+    version = "*",
+    dependencies = {
+      -- Required.
+      "nvim-lua/plenary.nvim",
+    },
+    opts = {
+      workspaces = {
+        {
+          name = "all",
+          path = "~/Documents/Brain",
+        },
+      },
+    },
+  },
+  {
+    "nvim-neorg/neorg",
+    build = ":Neorg sync-parsers",
+    event = "VeryLazy",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    keys = { { "<leader>nn", "<cmd>Neorg workspace<CR>", desc = "Start [N]eorg" } },
+    opts = {
+      load = {
+        ["core.defaults"] = {},  -- Loads default behaviour
+        ["core.concealer"] = {}, -- Adds pretty icons to your documents
+        ["core.completion"] = {  -- Add completion for norg notes
+          config = {
+            engine = "nvim-cmp",
+          },
+        },
+        ["core.dirman"] = { -- Manages Neorg workspaces
+          config = {
+            workspaces = {
+              notes = "~/Documents/Brain",
+            },
+            default_workspace = "notes",
+          },
+        },
+      },
+    },
+  },
+
 }

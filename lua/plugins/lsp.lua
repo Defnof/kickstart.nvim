@@ -168,6 +168,21 @@ return {
   },
 
   {
+    "mrcjkb/rustaceanvim",
+    version = "^3",
+    ft = { "rust" },
+    config = function(_, _)
+      vim.g.rustaceanvim = {
+        server = {
+          on_attach = function(client, bufnr)
+            require "utils.mapping".map_lsp_keybinds(bufnr)
+          end,
+        },
+      }
+    end,
+  },
+
+  {
     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
     event = "LspAttach",
     keys = {
@@ -186,8 +201,8 @@ return {
         desc = "Toggle [C]ode LSP [l]ines",
       },
     },
-    config = function(_, opts)
-      require("lsp_lines").setup(opts)
+    config = function()
+      require("lsp_lines").setup()
 
       local virtual_lines_config = vim.diagnostic.config()
       vim.diagnostic.config {
@@ -195,4 +210,17 @@ return {
       }
     end,
   },
+
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    config = true,
+    event = "VeryLazy",
+    keys = {
+      {
+        "<leader>cc",
+        "<cmd>TSContextToggle<CR>",
+        desc = "Toggle [C]ontext",
+      },
+    },
+  }
 }

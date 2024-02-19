@@ -163,12 +163,22 @@ mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
 }
 
+local in_table = function(table, value)
+  for _, v in pairs(table) do
+    if (v == value) then
+      return true
+    end
+  end
+  return false
+end
+
 mason_lspconfig.setup_handlers {
   function(server_name)
-    if server_name == "tsserver" then
-      -- NOTE: Let typescript-tools handle this
+    -- NOTE: Let server be handled by external dependencies
+    if in_table({ "rust_analyzer", "tsserver" }, server_name) then
       return
     end
+
     -- NOTE: Add defaults
     local settings = servers[server_name]
 
