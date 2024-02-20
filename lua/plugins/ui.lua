@@ -76,7 +76,7 @@ return {
       lsp = {
         progress = {
           -- enabled = true,
-          enabled = false,
+          enabled = true,
           -- Lsp Progress is formatted using the builtins for lsp_progress. See config.format.builtin
           -- See the section on formatting for more details on how to customize.
           --- @type NoiceFormat|string
@@ -185,13 +185,13 @@ return {
         },
         lualine_c = { { 'branch', cond = function() return vim.fn.winwidth(0) > 120 end }, 'diff' },
         lualine_x = {
-          {
-            'lsp_progress',
-            colors = {
-              use = true,
-            },
-            display_components = { { 'title', 'percentage', 'message' } },
-          },
+          -- {
+          --   'lsp_progress',
+          --   colors = {
+          --     use = true,
+          --   },
+          --   display_components = { { 'title', 'percentage', 'message' } },
+          -- },
           { 'diagnostics', }
         },
         lualine_y = {
