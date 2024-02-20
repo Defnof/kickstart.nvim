@@ -21,8 +21,10 @@ return {
         alpha_config.button("e", "  N[e]w file", "<cmd>ene <BAR> startinsert <CR>"),
         alpha_config.button("f", "󰈞  [F]ind file", "<cmd>Telescope find_files<CR>"),
         alpha_config.button("g", "󰜏  [G]rep project", "<cmd>Telescope live_grep<CR>"),
-        alpha_config.button("p", "  Load [P]rojects", "<cmd>SessionManager load_session <CR>"),
-        alpha_config.button("l", "  [L]oad last project", "<cmd>SessionManager load_last_session <CR>"),
+        -- alpha_config.button("p", "  Load [P]rojects", "<cmd>SessionManager load_session <CR>"),
+        -- alpha_config.button("l", "  [L]oad last project", "<cmd>SessionManager load_last_session <CR>"),
+        alpha_config.button("p", "  Load [P]rojects", "<cmd>Telescope neovim-project discover<CR>"),
+        alpha_config.button("l", "  [L]oad last project", "<cmd>NeovimProjectLoadRecent<CR>"),
       }
       -- disable MRU
       alpha_config.section.mru.val = {}
@@ -58,42 +60,45 @@ return {
       alpha.setup(alpha_config.config)
     end
   },
+
   {
-    "Shatur/neovim-session-manager",
-    cmd = "SessionManager",
-    keys = {
-      {
-        "<leader>pl", "<cmd>SessionManager load_last_session<CR>", desc = "[L]oad last project"
+    "coffebar/neovim-project",
+    event = "VimEnter",
+    opts = {
+      autosave_ignore_dirs = {
+        vim.fn.expand "~", -- don't create a session for $aHOME/
+        "/tmp",
       },
-      {
-        "<leader>ps", "<cmd>SessionManager save_current_session<CR>", desc = "[S]ave project"
-      },
-      {
-        "<leader>po", "<cmd>SessionManager load_session<CR>", desc = "L[o]ad [p]roject"
+      last_session_on_startup = false,
+      projects = { -- define project roots
+        "~/Documents/work/*",
+        "~/dotfiles/",
+        "~/dotfiles/kickstart",
+        "~/Documents/Brain/",
+        "~/Documents/playground/*",
+        "~/Documents/packages//*",
       },
     },
-    config = function(opts)
-      local Path = require('plenary.path')
-      local session_manager = require('session_manager')
-
-      -- Auto save session
-      vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
-        callback = function()
-          for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-            -- Don't save while there's any 'nofile' buffer open.
-            if vim.api.nvim_get_option_value("buftype", { buf = buf }) == 'nofile' then
-              return
-            end
-          end
-          session_manager.save_current_session()
-        end
-      })
-
-
-      opts['sessions_dir'] = Path:new(vim.fn.stdpath('data'), 'sessions')
-      opts['autoload_mode'] = require('session_manager.config').AutoloadMode.Disabled
-
-      session_manager.setup(opts)
+    init = function()
+      -- enable saving the state of plugins in the session
+      vim.opt.sessionoptions:append "globals" -- save global variables that start with an uppercase letter and contain at least one lowercase letter.
     end,
-  }
+    keys = {
+      {
+        "<leader>pl",
+        "<cmd>NeovimProjectLoadRecent<CR>",
+        desc = "[L]ast Session",
+      },
+      {
+        "<leader>po",
+        "<cmd>Telescope neovim-project discover<CR>",
+        desc = "Show [P]rojects",
+      },
+    },
+    dependencies = {
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-telescope/telescope.nvim", tag = "0.1.4" },
+      { "Shatur/neovim-session-manager" },
+    },
+  },
 }
