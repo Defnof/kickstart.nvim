@@ -161,11 +161,20 @@ return {
   {
     "pmizio/typescript-tools.nvim",
     enabled = true,
-    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "neovim/nvim-lspconfig",
+      {
+        "artemave/workspace-diagnostics.nvim",
+        enabled = false,
+        opts = {}
+      }
+    },
     opts = {
       on_attach = function(client, bufnr)
         require "utils.mapping".map_lsp_keybinds(bufnr)
-        -- require "workspace-diagnostics".populate_workspace_diagnostics(client, bufnr)
+        -- TODO: Figure out why it does not work, and why it keeps lsp keybinds from working
+        -- require("workspace-diagnostics").populate_workspace_diagnostics(client, bufnr)
       end
     },
   },
