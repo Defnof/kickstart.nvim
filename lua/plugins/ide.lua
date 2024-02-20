@@ -105,14 +105,6 @@ return {
     },
   },
   {
-    "artemave/workspace-diagnostics.nvim",
-    event = "VeryLazy",
-    opts = {},
-    config = function(_, opts)
-      require("workspace-diagnostics").setup(opts)
-    end
-  },
-  {
     "chrisgrieser/nvim-rulebook",
     keys = {
       {
