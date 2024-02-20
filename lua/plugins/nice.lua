@@ -15,6 +15,14 @@ return {
     end,
   },
 
+  {
+    "m4xshen/hardtime.nvim",
+    enabled = false,
+    event = "BufEnter",
+    dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+    opts = {}
+  },
+
   -- Useful plugin to show you pending keybinds.
   {
     'folke/which-key.nvim',
