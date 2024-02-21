@@ -11,8 +11,10 @@ cmp.setup {
       luasnip.lsp_expand(args.body)
     end,
   },
+  experimental = {
+    ghost_text = true,
+  },
   completion = {
-    autocomplete = false,
     completeopt = 'menu,menuone,noinsert',
   },
   mapping = cmp.mapping.preset.insert {
