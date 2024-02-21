@@ -335,4 +335,26 @@ return {
     end,
     opts = {},
   },
+  {
+    'akinsho/bufferline.nvim',
+    version = "*",
+    dependencies = 'nvim-tree/nvim-web-devicons',
+    opts = {
+      options = {
+        mode = "buffers", -- set to "tabs" to only show tabpages instead
+        separator_style = { '', '' },
+        indicator = {
+          icon = '▎', -- this should be omitted if indicator style is not 'icon'
+          style = 'none',
+        },
+        close_icon = '',
+        buffer_close_icon = '',
+        hover = { enabled = false },
+        close_command = nil,        -- can be a string | function, | false see "Mouse actions"
+        right_mouse_command = nil,  -- can be a string | function | false, see "Mouse actions"
+        left_mouse_command = nil,   -- can be a string | function, | false see "Mouse actions"
+        middle_mouse_command = nil, -- can be a string | function, | false see "Mouse actions"
+      }
+    }
+  }
 }
