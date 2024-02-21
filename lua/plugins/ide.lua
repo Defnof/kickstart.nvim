@@ -315,7 +315,7 @@ return {
   },
   {
     "Wansmer/symbol-usage.nvim",
-    enabled = true,
+    enabled = false,
     event = "BufReadPre", -- need run before LspAttach if you use nvim 0.9. On 0.10 use 'LspAttach'
     opts = {
       ---@type table<string, any> `nvim_set_hl`-like options for highlight virtual text
@@ -517,4 +517,68 @@ return {
     },
     opts = {},
   },
+  {
+    "laytan/cloak.nvim",
+    keys = { { "<leader>co", "<cmd>CloakToggle<CR>", desc = "Toggle Cl[o]ak" } },
+    event = "BufEnter",
+    opts = {
+      enabled = true,
+      cloak_character = '*',
+      -- The applied highlight group (colors) on the cloaking, see `:h highlight`.
+      highlight_group = 'Comment',
+      -- Applies the length of the replacement characters for all matched
+      -- patterns, defaults to the length of the matched pattern.
+      cloak_length = nil, -- Provide a number if you want to hide the true length of the value.
+      -- Whether it should try every pattern to find the best fit or stop after the first.
+      try_all_patterns = true,
+      patterns = {
+        {
+          -- Match any file starting with '.env'.
+          -- This can be a table to match multiple file patterns.
+          file_pattern = '.env*',
+          -- Match an equals sign and any character after it.
+          -- This can also be a table of patterns to cloak,
+          -- example: cloak_pattern = { ':.+', '-.+' } for yaml files.
+          cloak_pattern = '=.+',
+          -- A function, table or string to generate the replacement.
+          -- The actual replacement will contain the 'cloak_character'
+          -- where it doesn't cover the original text.
+          -- If left empty the legacy behavior of keeping the first character is retained.
+          replace = nil,
+        },
+      },
+    }
+  },
+
+  {
+    "nvim-pack/nvim-spectre",
+    event = "BufEnter",
+    opts = {},
+    keys = {
+      {
+        "<leader>cr",
+        function()
+          require("spectre").toggle()
+        end,
+        desc = "Toggle spect[r]e"
+      }
+    }
+  },
+
+  {
+    "harrisoncramer/gitlab.nvim",
+    enabled = false,
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "sindrets/diffview.nvim",
+      "stevearc/dressing.nvim",                                  -- Recommended but not required. Better UI for pickers.
+      "nvim-tree/nvim-web-devicons"                              -- Recommended but not required. Icons in discussion tree.
+    },
+    build = function() require("gitlab.server").build(true) end, -- Builds the Go binary
+    config = function()
+      require("gitlab").setup()
+    end,
+  }
+
 }
