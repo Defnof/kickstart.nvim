@@ -1,4 +1,3 @@
-
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
@@ -16,6 +15,12 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local lazy = require 'lazy'
+local lazy_config = {
+  defaults = {
+    -- lazy = true, -- should plugins be lazy-loaded? YES!
+    lazy = false,
+  },
+}
 
 -- [[ Configure plugins ]]
 -- NOTE: Here is where you install your plugins.
@@ -37,6 +42,4 @@ lazy.setup({
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   { import = 'plugins' },
-}, {})
-
-
+}, lazy_config)
