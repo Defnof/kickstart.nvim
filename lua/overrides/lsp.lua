@@ -3,9 +3,7 @@ local map_lsp_keybinds = require "utils.mapping".map_lsp_keybinds
 
 local on_attach = function(client, bufnr)
   return map_lsp_keybinds(bufnr)
-end
-
--- mason-lspconfig requires that these setup functions are called in this order
+end -- mason-lspconfig requires that these setup functions are called in this order
 -- before setting up the servers.
 require('mason').setup()
 require('mason-lspconfig').setup()
@@ -92,7 +90,7 @@ local tsserver = {
 local servers = {
   -- clangd = {},
   -- gopls = {},
-  -- pyright = {},
+  pyright = {},
   biome = {
     root_dir = lsputils.root_pattern "biome.json",
     single_file_support = false,
@@ -174,11 +172,6 @@ end
 
 mason_lspconfig.setup_handlers {
   function(server_name)
-    -- NOTE: Let server be handled by external dependencies
-    if in_table({ "rust_analyzer", "tsserver" }, server_name) then
-      return
-    end
-
     -- NOTE: Add defaults
     local settings = servers[server_name]
 

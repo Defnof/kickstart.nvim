@@ -28,7 +28,7 @@ return {
       -- Snippet Engine & its associated nvim-cmp source
       {
         'L3MON4D3/LuaSnip',
-        build = "make install_jsregexp",
+        build = 'make install_jsregexp',
       },
       'saadparwaiz1/cmp_luasnip',
 
@@ -46,17 +46,17 @@ return {
     'numToStr/Comment.nvim',
     keys = {
       {
-        "<leader>/",
+        '<leader>/',
         function()
-          require("Comment.api").toggle.linewise.current()
+          require('Comment.api').toggle.linewise.current()
         end,
-        mode = "n"
+        mode = 'n',
       },
       {
-        "<leader>/",
+        '<leader>/',
         "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
-        mode = "v"
-      }
+        mode = 'v',
+      },
     },
     opts = {
       mappings = {
@@ -65,40 +65,55 @@ return {
         ---Extra mapping; `gco`, `gcO`, `gcA`
         extra = false,
       },
-    }
+    },
   },
 
   {
     'stevearc/conform.nvim',
-    event  = { "BufWritePre" },
-    cmd    = { "ConformInfo" },
-    keys   = {
+    event = { 'BufWritePre' },
+    cmd = { 'ConformInfo' },
+    dependencies = {
       {
-        "<leader>cf",
+        'WhoIsSethDaniel/mason-tool-installer.nvim',
+        opts = {
+          ensure_installed = {
+            'biome',
+            'codespell',
+            'isort',
+            'stylua',
+          },
+          auto_update = true,
+        },
+      },
+    },
+    keys = {
+      {
+        '<leader>cf',
         function()
-          require("conform").format({ async = true, lsp_fallback = true })
+          require('conform').format { async = true, lsp_fallback = true }
         end,
-        desc = "[C]ode [F]ormat"
+        desc = '[C]ode [F]ormat',
       },
       {
-        "<leader>cT",
+        '<leader>cT',
         function()
           vim.g.autoformat = not vim.g.autoformat
         end,
-        desc = "[C]ode [T]oggle Formatting",
-      }
+        desc = '[C]ode [T]oggle Formatting',
+      },
     },
-    opts   = {
+    opts = {
       formatters_by_ft = {
-        lua = { "stylua" },
+        lua = { 'stylua' },
+        python = { 'isort', 'black' },
         -- Use a sub-list to run only the first available formatter
-        javascript = { "biome", },
-        typescript = { "biome", },
+        javascript = { 'biome' },
+        typescript = { 'biome' },
         -- Use the "*" filetype to run formatters on all filetypes.
-        ["*"] = { "codespell" },
+        ['*'] = { 'codespell' },
         -- Use the "_" filetype to run formatters on filetypes that don't
         -- have other formatters configured.
-        ["_"] = { "trim_whitespace" },
+        ['_'] = { 'trim_whitespace' },
       },
       format_on_save = function()
         if not vim.g.autoformat then
@@ -116,12 +131,12 @@ return {
       -- NOTE: Enable formatting by default
       vim.g.autoformat = true
       require('conform').setup(opts)
-    end
+    end,
   },
 
   {
     'akinsho/toggleterm.nvim',
-    version = "*",
+    version = '*',
     opts = {
       open_mapping = [[<A-i>]],
       direction = 'float',
@@ -143,13 +158,15 @@ return {
 
   -- NOTE: TS
   {
-    "dmmulroy/tsc.nvim",
-    cmd = "TSC",
-    ft = { "typescript", "typescriptreact" },
+    'dmmulroy/tsc.nvim',
+    cmd = 'TSC',
+    ft = { 'typescript', 'typescriptreact' },
     keys = {
       {
-        "<leader>ct", "<CMD>TSC<CR>", desc = "[C]ode [T]ype checking",
-      }
+        '<leader>ct',
+        '<CMD>TSC<CR>',
+        desc = '[C]ode [T]ype checking',
+      },
     },
     opts = {
       flags = {
@@ -159,35 +176,37 @@ return {
   },
 
   {
-    "pmizio/typescript-tools.nvim",
-    enabled = true,
+    'pmizio/typescript-tools.nvim',
+    enabled = false,
+    ft = { { "typescript", "typescriptreact", "javascript", "javascriptreact" } },
     dependencies = {
-      "nvim-lua/plenary.nvim",
-      "neovim/nvim-lspconfig",
+      'nvim-lua/plenary.nvim',
+      'neovim/nvim-lspconfig',
       {
-        "artemave/workspace-diagnostics.nvim",
+        'artemave/workspace-diagnostics.nvim',
         enabled = false,
-        opts = {}
-      }
+        opts = {},
+      },
     },
     opts = {
       on_attach = function(client, bufnr)
-        require "utils.mapping".map_lsp_keybinds(bufnr)
+        require('utils.mapping').map_lsp_keybinds(bufnr)
         -- TODO: Figure out why it does not work, and why it keeps lsp keybinds from working
         -- require("workspace-diagnostics").populate_workspace_diagnostics(client, bufnr)
-      end
+      end,
     },
   },
 
   {
-    "mrcjkb/rustaceanvim",
-    version = "^3",
-    ft = { "rust" },
+    'mrcjkb/rustaceanvim',
+    enabled = false,
+    version = '^3',
+    ft = { 'rust' },
     config = function(_, _)
       vim.g.rustaceanvim = {
         server = {
           on_attach = function(client, bufnr)
-            require "utils.mapping".map_lsp_keybinds(bufnr)
+            require('utils.mapping').map_lsp_keybinds(bufnr)
           end,
         },
       }
@@ -195,13 +214,13 @@ return {
   },
 
   {
-    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-    event = "LspAttach",
+    'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
+    event = 'LspAttach',
     keys = {
       {
-        "<Leader>cl",
+        '<Leader>cl',
         function()
-          local lines = require "lsp_lines"
+          local lines = require 'lsp_lines'
           lines.toggle()
 
           local virtual_lines_config = vim.diagnostic.config()
@@ -210,11 +229,11 @@ return {
             virtual_text = not virtual_lines_config,
           }
         end,
-        desc = "Toggle [C]ode LSP [l]ines",
+        desc = 'Toggle [C]ode LSP [l]ines',
       },
     },
     config = function()
-      require("lsp_lines").setup()
+      require('lsp_lines').setup()
 
       local virtual_lines_config = vim.diagnostic.config()
       vim.diagnostic.config {
@@ -224,31 +243,28 @@ return {
   },
 
   {
-    "nvim-treesitter/nvim-treesitter-context",
+    'nvim-treesitter/nvim-treesitter-context',
     config = true,
-    event = "VeryLazy",
+    event = 'VeryLazy',
     keys = {
       {
-        "<leader>cc",
-        "<cmd>TSContextToggle<CR>",
-        desc = "Toggle [C]ontext",
+        '<leader>cc',
+        '<cmd>TSContextToggle<CR>',
+        desc = 'Toggle [C]ontext',
       },
     },
   },
 
   {
-    "windwp/nvim-autopairs",
+    'windwp/nvim-autopairs',
     -- Optional dependency
     dependencies = { 'hrsh7th/nvim-cmp' },
     config = function()
-      require("nvim-autopairs").setup {}
+      require('nvim-autopairs').setup {}
       -- If you want to automatically add `(` after selecting a function or method
-      local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-      local cmp = require('cmp')
-      cmp.event:on(
-        'confirm_done',
-        cmp_autopairs.on_confirm_done()
-      )
+      local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
+      local cmp = require 'cmp'
+      cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
     end,
-  }
+  },
 }
