@@ -2,25 +2,25 @@ return {
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
   {
-    "TobinPalmer/Tip.nvim",
-    event = "VimEnter",
+    'TobinPalmer/Tip.nvim',
+    event = 'VimEnter',
     init = function()
       -- Default config
       --- @type Tip.config
-      require("tip").setup({
+      require('tip').setup {
         seconds = 2,
-        title = "Tip!",
-        url = "https://vtip.43z.one", -- Or https://vimiscool.tech/neotip
-      })
+        title = 'Tip!',
+        url = 'https://vtip.43z.one', -- Or https://vimiscool.tech/neotip
+      }
     end,
   },
 
   {
-    "m4xshen/hardtime.nvim",
+    'm4xshen/hardtime.nvim',
     enabled = false,
-    event = "BufEnter",
-    dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
-    opts = {}
+    event = 'BufEnter',
+    dependencies = { 'MunifTanjim/nui.nvim', 'nvim-lua/plenary.nvim' },
+    opts = {},
   },
 
   -- Useful plugin to show you pending keybinds.
@@ -76,27 +76,29 @@ return {
       },
       { 'nvim-telescope/telescope-ui-select.nvim' },
       {
-        "piersolenski/telescope-import.nvim",
-      }
+        'piersolenski/telescope-import.nvim',
+      },
     },
   },
 
   {
-    "0x00-ketsu/autosave.nvim",
+    '0x00-ketsu/autosave.nvim',
     enabled = false,
-    event = { "InsertLeave", "TextChanged" },
-    keys = { {
-      "<leader>an",
-      "<cmd>ASToggle<CR>",
-      desc = "Toggle Auto Save",
-    } },
+    event = { 'InsertLeave', 'TextChanged' },
+    keys = {
+      {
+        '<leader>an',
+        '<cmd>ASToggle<CR>',
+        desc = 'Toggle Auto Save',
+      },
+    },
     opts = {
       enable = true,
-      prompt_style = "stdout",
+      prompt_style = 'stdout',
       prompt_message = function()
-        return "Autosave: saved at " .. vim.fn.strftime "%H:%M:%S"
+        return 'Autosave: saved at ' .. vim.fn.strftime '%H:%M:%S'
       end,
-      events = { "InsertLeave", "TextChanged" },
+      events = { 'InsertLeave', 'TextChanged' },
       conditions = {
         exists = true,
         modifiable = true,
@@ -108,45 +110,47 @@ return {
     },
   },
   {
-    "epwalsh/obsidian.nvim",
+    'epwalsh/obsidian.nvim',
     enabled = false,
-    event = "VeryLazy",
-    version = "*",
+    event = 'VeryLazy',
+    version = '*',
     dependencies = {
       -- Required.
-      "nvim-lua/plenary.nvim",
+      'nvim-lua/plenary.nvim',
     },
     opts = {
       workspaces = {
         {
-          name = "all",
-          path = "~/Documents/Brain",
+          name = 'all',
+          path = '~/Documents/Brain',
         },
       },
     },
   },
   {
-    "nvim-neorg/neorg",
-    build = ":Neorg sync-parsers",
-    event = "VeryLazy",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    keys = { { "<leader>nn", "<cmd>Neorg workspace<CR>", desc = "Start [N]eorg" } },
+    'nvim-neorg/neorg',
+    build = ':Neorg sync-parsers',
+    event = 'VeryLazy',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    keys = {
+      { '<leader>nn', '<cmd>Neorg workspace<CR>', desc = 'Start [N]eorg' },
+    },
     opts = {
       load = {
-        ["core.defaults"] = {},  -- Loads default behaviour
-        ["core.concealer"] = {}, -- Adds pretty icons to your documents
-        ["core.completion"] = {  -- Add completion for norg notes
+        ['core.defaults'] = {}, -- Loads default behaviour
+        ['core.concealer'] = {}, -- Adds pretty icons to your documents
+        ['core.completion'] = { -- Add completion for norg notes
           config = {
-            engine = "nvim-cmp",
+            engine = 'nvim-cmp',
           },
         },
-        ["core.dirman"] = { -- Manages Neorg workspaces
+        ['core.dirman'] = { -- Manages Neorg workspaces
           config = {
             workspaces = {
-              notes = "~/Documents/Brain/Notes/",
-              work = "~/Documents/Brain/Work/",
+              notes = '~/Documents/Brain/Notes/',
+              work = '~/Documents/Brain/Work/',
             },
-            default_workspace = "notes",
+            default_workspace = 'notes',
           },
         },
       },
@@ -154,10 +158,58 @@ return {
   },
 
   {
-    "mbbill/undotree",
+    'mbbill/undotree',
     opts = {},
     keys = {
-      { "<leader>u", "<CMD>UndotreeToggle<CR>", desc = "Toggle [U]ndoTree" }
-    }
+      { '<leader>u', '<CMD>UndotreeToggleCR', desc = 'Toggle [U]ndoTree' },
+    },
+  },
+
+  {
+    'stefanlogue/hydrate.nvim',
+    -- This installs the latest stable release.
+    -- Set to false or omit to install the latest development version
+    version = '*',
+    opts = {
+      -- See below for config options
+
+      -- The interval between notifications in minutes
+      minute_interval = 20,
+
+      -- The render style for notifications
+      -- Accepted values are "default", "minimal", "simple" or "compact"
+      render_style = 'default',
+
+      -- Loads time of last drink on startup
+      -- Useful if you don't have long-running neovim instances
+      -- or if you tend to have multiple instances running at a time
+      persist_timer = true,
+    },
+  },
+
+  {
+    'petertriho/nvim-scrollbar',
+    opts = {},
+
+    config = function()
+      local colors = require('catppuccin.utils.colors').setup()
+
+      require('scrollbar').setup {
+        show = true,
+        show_in_active_only = false,
+        set_highlights = true,
+        handle = {
+          color = colors.bg_highlight,
+        },
+        marks = {
+          Search = { color = colors.orange },
+          Error = { color = colors.error },
+          Warn = { color = colors.warning },
+          Info = { color = colors.info },
+          Hint = { color = colors.hint },
+          Misc = { color = colors.purple },
+        },
+      }
+    end,
   },
 }

@@ -1,5 +1,5 @@
 -- [[ Configure LSP ]]
-local map_lsp_keybinds = require "utils.mapping".map_lsp_keybinds
+local map_lsp_keybinds = require('utils.mapping').map_lsp_keybinds
 
 local on_attach = function(client, bufnr)
   return map_lsp_keybinds(bufnr)
@@ -8,12 +8,11 @@ end -- mason-lspconfig requires that these setup functions are called in this or
 require('mason').setup()
 require('mason-lspconfig').setup()
 
-
 -- NOTE: TSServer methods
 local function execute_ts_command(command)
   return function()
     local params = {
-      command = "_typescript." .. command,
+      command = '_typescript.' .. command,
       arguments = {
         vim.api.nvim_buf_get_name(0),
       },
@@ -23,7 +22,7 @@ local function execute_ts_command(command)
   end
 end
 
-local lsputils = require "lspconfig.util"
+local lsputils = require 'lspconfig.util'
 
 local tsserver = {
   on_attach = function(client, bufnr)
@@ -34,7 +33,7 @@ local tsserver = {
   settings = {
     typescript = {
       inlayHints = {
-        includeInlayParameterNameHints = "all",
+        includeInlayParameterNameHints = 'all',
         includeInlayParameterNameHintsWhenArgumentMatchesName = false,
         includeInlayFunctionParameterTypeHints = true,
         includeInlayVariableTypeHints = true,
@@ -46,7 +45,7 @@ local tsserver = {
     },
     javascript = {
       inlayHints = {
-        includeInlayParameterNameHints = "all",
+        includeInlayParameterNameHints = 'all',
         includeInlayParameterNameHintsWhenArgumentMatchesName = false,
         includeInlayFunctionParameterTypeHints = true,
         includeInlayVariableTypeHints = true,
@@ -59,22 +58,22 @@ local tsserver = {
   },
   init_options = {
     preferences = {
-      importModuleSpecifierPreference = "absolute",
-      importModuleSpecifierEnding = "minimal",
+      importModuleSpecifierPreference = 'absolute',
+      importModuleSpecifierEnding = 'minimal',
     },
   },
   commands = {
     OrganizeImports = {
-      execute_ts_command "organizeImports",
-      description = "Organize Imports",
+      execute_ts_command 'organizeImports',
+      description = 'Organize Imports',
     },
     RemoveUnusedImports = {
-      execute_ts_command "removeUnused",
-      description = "Remove Unused Imports",
+      execute_ts_command 'removeUnused',
+      description = 'Remove Unused Imports',
     },
     FixAll = {
-      execute_ts_command "fixAll",
-      description = "Fix All",
+      execute_ts_command 'fixAll',
+      description = 'Fix All',
     },
   },
 }
@@ -92,34 +91,34 @@ local servers = {
   -- gopls = {},
   pyright = {},
   biome = {
-    root_dir = lsputils.root_pattern "biome.json",
+    root_dir = lsputils.root_pattern 'biome.json',
     single_file_support = false,
     settings = {
       filetypes = {
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescript.tsx",
-        "typescriptreact",
+        'javascript',
+        'javascriptreact',
+        'typescript',
+        'typescript.tsx',
+        'typescriptreact',
       },
     },
   },
   eslint = {
-    root_dir = lsputils.root_pattern ".eslintrc.js",
+    root_dir = lsputils.root_pattern '.eslintrc.js',
     single_file_support = false,
     settings = {
       filetypes = {
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescript.tsx",
-        "typescriptreact",
+        'javascript',
+        'javascriptreact',
+        'typescript',
+        'typescript.tsx',
+        'typescriptreact',
       },
     },
   },
   tailwindcss = {
     filetypes = {
-      "typescriptreact",
+      'typescriptreact',
     },
   },
   -- WARN: Deprecated, replaced by typescript-tools.nvim
@@ -163,7 +162,7 @@ mason_lspconfig.setup {
 
 local in_table = function(table, value)
   for _, v in pairs(table) do
-    if (v == value) then
+    if v == value then
       return true
     end
   end
