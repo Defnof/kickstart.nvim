@@ -315,7 +315,7 @@ return {
   },
   {
     "Wansmer/symbol-usage.nvim",
-    enabled = false,
+    enabled = true,
     event = "BufReadPre", -- need run before LspAttach if you use nvim 0.9. On 0.10 use 'LspAttach'
     opts = {
       ---@type table<string, any> `nvim_set_hl`-like options for highlight virtual text
@@ -605,6 +605,31 @@ return {
     config = function()
       require("gitlab").setup()
     end,
-  }
+  },
 
+  {
+    "norcalli/nvim-colorizer.lua",
+    opts = {
+      'css',
+      'scss',
+      'javascriptreact',
+      'typescriptreact',
+      html = {
+        mode = 'foreground',
+      }
+    }
+  },
+
+  {
+    "olrtg/nvim-i18n",
+    -- NOTE: Currently does not work, possbily fork and add monorepo support?
+    enabled = false,
+    dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+    opts = {},
+    keys = {
+      { "<leader>cI", "<cmd>Internationalization<CR>", desc = "[C]ode [I]nternationalization" }
+    }
+  },
+
+  { "windwp/nvim-ts-autotag", opts = { filetypes = { "html", "xml", "typescriptreact", "javascriptreact" } } }
 }
