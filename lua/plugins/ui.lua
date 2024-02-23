@@ -347,6 +347,11 @@ return {
           icon = '▎', -- this should be omitted if indicator style is not 'icon'
           style = 'none',
         },
+        always_show_bufferline = false,
+        max_name_length = 13,
+        max_prefix_length = 11, -- prefix used when a buffer is de-duplicated
+        truncate_names = true,  -- whether or not tab names should be truncated
+        tab_size = 13,
         close_icon = '',
         buffer_close_icon = '',
         hover = { enabled = false },
