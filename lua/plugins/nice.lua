@@ -33,7 +33,7 @@ return {
         ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
         ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
         ['<leader>g'] = { name = '[G]oto', _ = 'which_key_ignore' },
-        ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
+        ['<leader>gh'] = { name = '[G]it [H]unk', _ = 'which_key_ignore' },
         ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
         ['<leader>f'] = { name = '[F]ind', _ = 'which_key_ignore' },
         ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
@@ -45,10 +45,10 @@ return {
         ['<leader><space>'] = { name = '[ ] Run', _ = 'which_key_ignore' },
       }
       -- register which-key VISUAL mode
-      -- required for visual <leader>hs (hunk stage) to work
+      -- required for visual <leader>ghs (hunk stage) to work
       require('which-key').register({
         ['<leader>'] = { name = 'VISUAL <leader>' },
-        ['<leader>h'] = { 'Git [H]unk' },
+        ['<leader>gh'] = { '[G]it [H]unk' },
       }, { mode = 'v' })
     end,
   },
@@ -143,7 +143,8 @@ return {
         ["core.dirman"] = { -- Manages Neorg workspaces
           config = {
             workspaces = {
-              notes = "~/Documents/Brain",
+              notes = "~/Documents/Brain/Notes/",
+              work = "~/Documents/Brain/Work/",
             },
             default_workspace = "notes",
           },

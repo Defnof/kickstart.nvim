@@ -29,8 +29,8 @@ nmap(';', ':', '', { nowait = true })
 nmap("<leader>b", "<cmd> enew <CR>", "New [B]uffer")
 
 -- buffer manip
-nmap("<leader>x", "<cmd> bd <CR>", "[x] Close buffer")
-nmap("<leader>X", "<cmd> q <CR>", "[x] Close buffer")
+-- nmap("<leader>x", "<cmd> bd <CR>", "[x] Close buffer")
+-- nmap("<leader>X", "<cmd> q <CR>", "[x] Close buffer")
 
 nmap("<C-n>", "<cmd>bnext<CR>", "[N]ext buffer")
 nmap("<C-p>", "<cmd>bprevious<CR>", "[P]revious buffer")

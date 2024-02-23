@@ -28,11 +28,11 @@ return {
     "tpope/vim-fugitive",
     keys = {
       {
-        "<leader>hg",
+        "<leader>ghf",
         function()
           vim.api.nvim_feedkeys(":G ", "n", true)
         end,
-        desc = "Activate Fu[g]itive"
+        desc = "Activate [G]it [F]ugitive"
       },
     }
   },
