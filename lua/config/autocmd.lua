@@ -12,20 +12,6 @@ autocmd('WinEnter', {
   end,
 })
 
-local parse_highlight = function()
-  local highlights = require 'config.highlights'
-
-  for key, value in pairs(highlights) do
-    vim.api.nvim_set_hl(0, key, value)
-  end
-end
-
-autocmd('ColorScheme', {
-  callback = function()
-    parse_highlight()
-  end,
-})
-
 -- autocmd('InsertEnter', {
 --   callback = function()
 --     vim.o.relativenumber = false
