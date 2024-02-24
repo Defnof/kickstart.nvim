@@ -1,28 +1,28 @@
 return {
   {
     -- NOTE: Work with registers
-    "tversteeg/registers.nvim",
-    name = "registers",
+    'tversteeg/registers.nvim',
+    name = 'registers',
     keys = {
-      { '"',     mode = { "n", "v" } },
-      { "<C-R>", mode = "i" },
+      { '"', mode = { 'n', 'v' } },
+      { '<C-R>', mode = 'i' },
     },
   },
   {
     -- NOTE: Surround commands
-    "kylechui/nvim-surround",
-    version = "*", -- Use for stability; omit to use `main` branch for the latest featuresnvim
-    event = "InsertEnter",
+    'kylechui/nvim-surround',
+    version = '*', -- Use for stability; omit to use `main` branch for the latest featuresnvim
+    event = 'InsertEnter',
     dependencies = {
       {
         -- NOTE: Add UI for surround commands
-        "roobert/surround-ui.nvim",
+        'roobert/surround-ui.nvim',
         dependencies = {
-          "kylechui/nvim-surround",
-          "folke/which-key.nvim",
+          'kylechui/nvim-surround',
+          'folke/which-key.nvim',
         },
         opts = {
-          root_key = "S",
+          root_key = 'S',
         },
       },
     },
@@ -30,92 +30,92 @@ return {
   },
   {
     -- NOTE: Allow jj and jk to escape insert mode
-    "max397574/better-escape.nvim",
-    event = "InsertEnter",
+    'max397574/better-escape.nvim',
+    event = 'InsertEnter',
     config = true,
   },
   {
     -- NOTE: Improved search and jumps
-    "folke/flash.nvim",
-    event = "VeryLazy",
+    'folke/flash.nvim',
+    event = 'VeryLazy',
     opts = {}, ---@type Flash.Config
     keys = {
       {
-        "s",
-        mode = { "n", "x", "o" },
+        's',
+        mode = { 'n', 'x', 'o' },
         function()
-          require("flash").jump()
+          require('flash').jump()
         end,
-        desc = "Flash",
+        desc = 'Flash',
       },
       {
-        "S",
-        mode = { "n", "x", "o" },
+        'S',
+        mode = { 'n', 'x', 'o' },
         function()
-          require("flash").treesitter()
+          require('flash').treesitter()
         end,
-        desc = "Flash Treesitter",
+        desc = 'Flash Treesitter',
       },
       {
-        "r",
-        mode = "o",
+        'r',
+        mode = 'o',
         function()
-          require("flash").remote()
+          require('flash').remote()
         end,
-        desc = "Remote Flash",
+        desc = 'Remote Flash',
       },
       {
-        "R",
-        mode = { "o", "x" },
+        'R',
+        mode = { 'o', 'x' },
         function()
-          require("flash").treesitter_search()
+          require('flash').treesitter_search()
         end,
-        desc = "Treesitter Search",
+        desc = 'Treesitter Search',
       },
       {
-        "<c-s>",
-        mode = { "c" },
+        '<c-s>',
+        mode = { 'c' },
         function()
-          require("flash").toggle()
+          require('flash').toggle()
         end,
-        desc = "Toggle Flash Search",
+        desc = 'Toggle Flash Search',
       },
     },
   },
   {
-    "ThePrimeagen/harpoon",
+    'ThePrimeagen/harpoon',
     enabled = false,
-    branch = "harpoon2",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    branch = 'harpoon2',
+    dependencies = { 'nvim-lua/plenary.nvim' },
     keys = {
       {
-        "<leader>ma",
+        '<leader>ma',
         function()
           require('harpoon'):list():append()
         end,
-        desc = "[A]ppend to Harpoon",
+        desc = '[A]ppend to Harpoon',
       },
       {
-        "<C-e>",
+        '<C-e>',
         function()
-          require('harpoon').ui:toggle_quick_menu(require "harpoon":list())
+          require('harpoon').ui:toggle_quick_menu(require('harpoon'):list())
         end,
-        desc = "[L]ist in Harpoon",
+        desc = '[L]ist in Harpoon',
       },
       {
-        "<C-p>",
+        '<C-p>',
         function()
           require('harpoon'):list():prev()
         end,
-        desc = "[M]ove Harpoon Prev",
+        desc = '[M]ove Harpoon Prev',
       },
       {
-        "<C-n>",
+        '<C-n>',
         function()
           require('harpoon'):list():next()
         end,
-        desc = "[M]ove Harpoon Next",
-      }
-    }
-  }
+        desc = '[M]ove Harpoon Next',
+      },
+    },
+  },
 }

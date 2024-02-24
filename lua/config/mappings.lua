@@ -1,5 +1,5 @@
 -- [[ Basic Keymaps ]]
-local M = require('utils.mapping')
+local M = require 'utils.mapping'
 local map = M.map
 local nmap = M.nmap
 
@@ -8,17 +8,17 @@ local nmap = M.nmap
 map({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- Remap for dealing with word wrap
-nmap('k', "v:count == 0 ? 'gk' : 'k'", "", { expr = true, silent = true })
-nmap('j', "v:count == 0 ? 'gj' : 'j'", "", { expr = true, silent = true })
+nmap('k', "v:count == 0 ? 'gk' : 'k'", '', { expr = true, silent = true })
+nmap('j', "v:count == 0 ? 'gj' : 'j'", '', { expr = true, silent = true })
 
 -- Quit and Save
-nmap('<leader>s', '<CMD>w<CR>', "[S]ave Buffer")
-nmap('<A-q>', '<CMD>qa!<CR>', "[Q]uit Kickstart")
-nmap('<C-c>', "<cmd> %y+ <CR>", "[C]opy File")
+nmap('<leader>s', '<CMD>w<CR>', '[S]ave Buffer')
+nmap('<A-q>', '<CMD>qa!<CR>', '[Q]uit Kickstart')
+nmap('<C-c>', '<cmd> %y+ <CR>', '[C]opy File')
 
 -- toggle relative numbers
 nmap('<leader>rn', function()
-  vim.o.signcolumn = vim.o.signcolumn == "yes" and "no" or "yes"
+  vim.o.signcolumn = vim.o.signcolumn == 'yes' and 'no' or 'yes'
   vim.o.relativenumber = not vim.o.relativenumber
 end, 'Toggle [R]elative [N]umbers')
 
@@ -26,17 +26,17 @@ end, 'Toggle [R]elative [N]umbers')
 nmap(';', ':', '', { nowait = true })
 
 -- new File
-nmap("<leader>b", "<cmd> enew <CR>", "New [B]uffer")
+nmap('<leader>b', '<cmd> new <CR>', 'New [B]uffer')
 
 -- buffer manip
 -- nmap("<leader>x", "<cmd> bd <CR>", "[x] Close buffer")
 -- nmap("<leader>X", "<cmd> q <CR>", "[x] Close buffer")
 
-nmap("<C-n>", "<cmd>bnext<CR>", "[N]ext buffer")
-nmap("<C-p>", "<cmd>bprevious<CR>", "[P]revious buffer")
+nmap('<C-n>', '<cmd>bnext<CR>', '[N]ext buffer')
+nmap('<C-p>', '<cmd>bprevious<CR>', '[P]revious buffer')
 
 -- Movement
-nmap('<C-h>', "<C-w>h", "Window Left");
-nmap('<C-l>', "<C-w>l", "Window Right");
-nmap('<C-j>', "<C-w>j", "Window Down");
-nmap('<C-k>', "<C-w>k", "Window Up");
+nmap('<C-h>', '<C-w>h', 'Window Left')
+nmap('<C-l>', '<C-w>l', 'Window Right')
+nmap('<C-j>', '<C-w>j', 'Window Down')
+nmap('<C-k>', '<C-w>k', 'Window Up')

@@ -1,38 +1,40 @@
 return {
   -- Git related plugins
   {
-    "kdheepak/lazygit.nvim",
+    'kdheepak/lazygit.nvim',
     enabled = true,
-    event = "VeryLazy",
+    event = 'VeryLazy',
     keys = {
       {
-        "<A-g>",
-        "<cmd>LazyGit<CR>",
-        desc = "LazyGit",
+        '<A-g>',
+        '<cmd>LazyGit<CR>',
+        desc = 'LazyGit',
       },
     },
     dependencies = {
-      "nvim-lua/plenary.nvim",
+      'nvim-lua/plenary.nvim',
     },
   },
 
   {
-    "NeogitOrg/neogit",
+    'NeogitOrg/neogit',
     enabled = false,
     dependencies = {
-      "nvim-lua/plenary.nvim",  -- required
-      "sindrets/diffview.nvim", -- optional - Diff integration
+      'nvim-lua/plenary.nvim', -- required
+      'sindrets/diffview.nvim', -- optional - Diff integration
 
       -- Only one of these is needed, not both.
-      "nvim-telescope/telescope.nvim", -- optional
-      "ibhagwan/fzf-lua",              -- optional
+      'nvim-telescope/telescope.nvim', -- optional
+      'ibhagwan/fzf-lua', -- optional
     },
     opts = {},
     keys = {
       {
-        "<A-g>", "<cmd>Neogit kind=vsplit<CR>", desc = "Neo[g]it",
+        '<A-g>',
+        '<cmd>Neogit kind=vsplit<CR>',
+        desc = 'Neo[g]it',
       },
-    }
+    },
   },
 
   {
@@ -46,12 +48,12 @@ return {
         -- delete = { text = '' },
         -- topdelete = { text = '󰢦' },
         -- changedelete = { text = '' },
-        add          = { text = '│' },
-        change       = { text = '│' },
-        delete       = { text = '_' },
-        topdelete    = { text = '‾' },
+        add = { text = '│' },
+        change = { text = '│' },
+        delete = { text = '_' },
+        topdelete = { text = '‾' },
         changedelete = { text = '~' },
-        untracked    = { text = '┆' },
+        untracked = { text = '┆' },
       },
       on_attach = function(bufnr)
         local gs = package.loaded.gitsigns
@@ -107,11 +109,26 @@ return {
         end, { desc = 'git diff against last commit' })
 
         -- Toggles
-        map('n', '<leader>tb', gs.toggle_current_line_blame, { desc = '[T]oggle git [b]lame line' })
-        map('n', '<leader>td', gs.toggle_deleted, { desc = '[T]oggle git show [d]eleted' })
+        map(
+          'n',
+          '<leader>tb',
+          gs.toggle_current_line_blame,
+          { desc = '[T]oggle git [b]lame line' }
+        )
+        map(
+          'n',
+          '<leader>td',
+          gs.toggle_deleted,
+          { desc = '[T]oggle git show [d]eleted' }
+        )
 
         -- Text object
-        map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', { desc = 'select git hunk' })
+        map(
+          { 'o', 'x' },
+          'ih',
+          ':<C-U>Gitsigns select_hunk<CR>',
+          { desc = 'select git hunk' }
+        )
       end,
     },
   },

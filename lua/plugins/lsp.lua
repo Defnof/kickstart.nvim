@@ -178,7 +178,9 @@ return {
   {
     'pmizio/typescript-tools.nvim',
     enabled = false,
-    ft = { { "typescript", "typescriptreact", "javascript", "javascriptreact" } },
+    ft = {
+      { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
+    },
     dependencies = {
       'nvim-lua/plenary.nvim',
       'neovim/nvim-lspconfig',
@@ -223,8 +225,7 @@ return {
           local lines = require 'lsp_lines'
           lines.toggle()
 
-          local virtual_lines_config = vim.diagnostic.config()
-              .virtual_lines -- Disable virtual_text since it's redundant due to lsp_lines.
+          local virtual_lines_config = vim.diagnostic.config().virtual_lines -- Disable virtual_text since it's redundant due to lsp_lines.
           vim.diagnostic.config {
             virtual_text = not virtual_lines_config,
           }

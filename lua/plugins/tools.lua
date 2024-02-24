@@ -1,42 +1,44 @@
 return {
   {
-    "crnvl96/lazydocker.nvim",
-    event = "VeryLazy",
+    'crnvl96/lazydocker.nvim',
+    event = 'VeryLazy',
     opts = {}, -- automatically calls `require("lazydocker").setup()`
     keys = {
       {
-        "<A-d>",
-        "<cmd>LazyDocker<CR>",
-        desc = "LazyDocker",
+        '<A-d>',
+        '<cmd>LazyDocker<CR>',
+        desc = 'LazyDocker',
       },
     },
     dependencies = {
-      "MunifTanjim/nui.nvim",
+      'MunifTanjim/nui.nvim',
     },
   },
   {
-    "stevearc/oil.nvim",
+    'stevearc/oil.nvim',
     opts = {},
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
     keys = {
       {
-        "-", "<cmd>Oil<CR>", desc = "[-] Open parent directory",
-      }
-    }
+        '-',
+        '<cmd>Oil<CR>',
+        desc = '[-] Open parent directory',
+      },
+    },
   },
   {
-    "tpope/vim-fugitive",
+    'tpope/vim-fugitive',
     keys = {
       {
-        "<leader>ghf",
+        '<leader>ghf',
         function()
-          vim.api.nvim_feedkeys(":G ", "n", true)
+          vim.api.nvim_feedkeys(':G ', 'n', true)
         end,
-        desc = "Activate [G]it [F]ugitive"
+        desc = 'Activate [G]it [F]ugitive',
       },
-    }
+    },
   },
-  { "tpope/vim-rhubarb", },
-  { 'tpope/vim-dadbod', },
-  { "tpope/vim-eunuch", }
+  { 'tpope/vim-rhubarb' },
+  { 'tpope/vim-dadbod' },
+  { 'tpope/vim-eunuch' },
 }

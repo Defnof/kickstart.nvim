@@ -161,7 +161,7 @@ return {
     'mbbill/undotree',
     opts = {},
     keys = {
-      { '<leader>u', '<CMD>UndotreeToggleCR', desc = 'Toggle [U]ndoTree' },
+      { '<leader>u', 'CMDUndotreeToggleCR', desc = 'Toggle [U]ndoTree' },
     },
   },
 
@@ -185,31 +185,5 @@ return {
       -- or if you tend to have multiple instances running at a time
       persist_timer = true,
     },
-  },
-
-  {
-    'petertriho/nvim-scrollbar',
-    opts = {},
-
-    config = function()
-      local colors = require('catppuccin.utils.colors').setup()
-
-      require('scrollbar').setup {
-        show = true,
-        show_in_active_only = false,
-        set_highlights = true,
-        handle = {
-          color = colors.bg_highlight,
-        },
-        marks = {
-          Search = { color = colors.orange },
-          Error = { color = colors.error },
-          Warn = { color = colors.warning },
-          Info = { color = colors.info },
-          Hint = { color = colors.hint },
-          Misc = { color = colors.purple },
-        },
-      }
-    end,
   },
 }

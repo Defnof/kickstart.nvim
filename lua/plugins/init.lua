@@ -18,13 +18,33 @@ return {
         [[     \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
       }
       alpha_config.section.top_buttons.val = {
-        alpha_config.button("e", "  N[e]w file", "<cmd>ene <BAR> startinsert <CR>"),
-        alpha_config.button("f", "󰈞  [F]ind file", "<cmd>Telescope find_files<CR>"),
-        alpha_config.button("g", "󰜏  [G]rep project", "<cmd>Telescope live_grep<CR>"),
+        alpha_config.button(
+          'e',
+          '  N[e]w file',
+          '<cmd>ene <BAR> startinsert <CR>'
+        ),
+        alpha_config.button(
+          'f',
+          '󰈞  [F]ind file',
+          '<cmd>Telescope find_files<CR>'
+        ),
+        alpha_config.button(
+          'g',
+          '󰜏  [G]rep project',
+          '<cmd>Telescope live_grep<CR>'
+        ),
         -- alpha_config.button("p", "  Load [P]rojects", "<cmd>SessionManager load_session <CR>"),
         -- alpha_config.button("l", "  [L]oad last project", "<cmd>SessionManager load_last_session <CR>"),
-        alpha_config.button("p", "  Load [P]rojects", "<cmd>Telescope neovim-project discover<CR>"),
-        alpha_config.button("l", "  [L]oad last project", "<cmd>NeovimProjectLoadRecent<CR>"),
+        alpha_config.button(
+          'p',
+          '  Load [P]rojects',
+          '<cmd>Telescope neovim-project discover<CR>'
+        ),
+        alpha_config.button(
+          'l',
+          '  [L]oad last project',
+          '<cmd>NeovimProjectLoadRecent<CR>'
+        ),
       }
       -- disable MRU
       alpha_config.section.mru.val = {}
@@ -33,24 +53,28 @@ return {
       --
       alpha_config.section.bottom_buttons.val = {
         -- TODO: Finish implementation using MRU or other
-        alpha_config.button("L", "󰂖  [L]azy Plugins", "<cmd>Lazy<CR>"),
-        alpha_config.button("u", "󰚰  [U]pdate plugins", "<cmd>Lazy update<CR>"),
-        alpha_config.button("c", "  Open [C]onfig", "<cmd>e $MYVIMRC<CR>"),
-        alpha_config.button("h", "  Check [h]ealth", "<cmd>checkhealth<CR>"),
-        alpha_config.button("q", "󰅚  [Q]uit", "<cmd>qa<CR>"),
+        alpha_config.button('L', '󰂖  [L]azy Plugins', '<cmd>Lazy<CR>'),
+        alpha_config.button(
+          'u',
+          '󰚰  [U]pdate plugins',
+          '<cmd>Lazy update<CR>'
+        ),
+        alpha_config.button('c', '  Open [C]onfig', '<cmd>e $MYVIMRC<CR>'),
+        alpha_config.button('h', '  Check [h]ealth', '<cmd>checkhealth<CR>'),
+        alpha_config.button('q', '󰅚  [Q]uit', '<cmd>qa<CR>'),
       }
 
       alpha_config.config.opts.setup = function()
-        vim.api.nvim_create_autocmd("User", {
-          pattern = "AlphaReady",
-          desc = "Disable status and tabline for alpha",
+        vim.api.nvim_create_autocmd('User', {
+          pattern = 'AlphaReady',
+          desc = 'Disable status and tabline for alpha',
           callback = function()
             vim.go.laststatus = 0
           end,
         })
-        vim.api.nvim_create_autocmd("BufUnload", {
+        vim.api.nvim_create_autocmd('BufUnload', {
           buffer = 0,
-          desc = "Enable status and tabline after alpha",
+          desc = 'Enable status and tabline after alpha',
           callback = function()
             vim.go.laststatus = 3
           end,
@@ -58,47 +82,47 @@ return {
       end
 
       alpha.setup(alpha_config.config)
-    end
+    end,
   },
 
   {
-    "coffebar/neovim-project",
-    event = "VimEnter",
+    'coffebar/neovim-project',
+    event = 'VimEnter',
     opts = {
       autosave_ignore_dirs = {
-        vim.fn.expand "~", -- don't create a session for $aHOME/
-        "/tmp",
+        vim.fn.expand '~', -- don't create a session for $aHOME/
+        '/tmp',
       },
       last_session_on_startup = false,
       projects = { -- define project roots
-        "~/Documents/work/*",
-        "~/dotfiles/",
-        "~/dotfiles/kickstart",
-        "~/Documents/Brain/",
-        "~/Documents/playground/*",
-        "~/Documents/packages//*",
+        '~/Documents/work/*',
+        '~/dotfiles/',
+        '~/dotfiles/kickstart',
+        '~/Documents/Brain/',
+        '~/Documents/playground/*',
+        '~/Documents/packages//*',
       },
     },
     init = function()
       -- enable saving the state of plugins in the session
-      vim.opt.sessionoptions:append "globals" -- save global variables that start with an uppercase letter and contain at least one lowercase letter.
+      vim.opt.sessionoptions:append 'globals' -- save global variables that start with an uppercase letter and contain at least one lowercase letter.
     end,
     keys = {
       {
-        "<leader>pl",
-        "<cmd>NeovimProjectLoadRecent<CR>",
-        desc = "[L]ast Session",
+        '<leader>pl',
+        '<cmd>NeovimProjectLoadRecent<CR>',
+        desc = '[L]ast Session',
       },
       {
-        "<leader>po",
-        "<cmd>Telescope neovim-project discover<CR>",
-        desc = "Show [P]rojects",
+        '<leader>po',
+        '<cmd>Telescope neovim-project discover<CR>',
+        desc = 'Show [P]rojects',
       },
     },
     dependencies = {
-      { "nvim-lua/plenary.nvim" },
-      { "nvim-telescope/telescope.nvim", tag = "0.1.4" },
-      { "Shatur/neovim-session-manager" },
+      { 'nvim-lua/plenary.nvim' },
+      { 'nvim-telescope/telescope.nvim', tag = '0.1.4' },
+      { 'Shatur/neovim-session-manager' },
     },
   },
 }

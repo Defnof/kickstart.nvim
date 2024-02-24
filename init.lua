@@ -38,8 +38,8 @@ I hope you enjoy your Neovim journey,
 P.S. You can delete this when you're done too. It's your config now :)
 --]]
 
-require "config.init"
-require "config.lazy"
+require 'config.init'
+require 'config.lazy'
 require 'config.vim'
 require 'config.mappings'
 
@@ -47,9 +47,9 @@ local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 local get_window_config = vim.api.nvim_win_get_config
 
-autocmd("WinEnter", {
+autocmd('WinEnter', {
   callback = function()
-    local floating = get_window_config(0).relative ~= ""
+    local floating = get_window_config(0).relative ~= ''
     vim.diagnostic.config {
       virtual_text = floating,
       virtual_lines = not floating,
@@ -58,18 +58,17 @@ autocmd("WinEnter", {
 })
 
 local parse_highlight = function()
-  local highlights = require "config.highlights"
+  local highlights = require 'config.highlights'
 
   for key, value in pairs(highlights) do
     vim.api.nvim_set_hl(0, key, value)
   end
 end
 
-
 autocmd('ColorScheme', {
   callback = function()
     parse_highlight()
-  end
+  end,
 })
 
 -- autocmd('InsertEnter', {
@@ -83,7 +82,6 @@ autocmd('ColorScheme', {
 --     vim.o.relativenumber = true
 --   end,
 -- })
-
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
