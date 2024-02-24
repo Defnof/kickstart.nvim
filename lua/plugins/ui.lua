@@ -14,6 +14,9 @@ return {
     name = 'catppuccin',
     priority = 1000,
     opts = {
+      flavour = 'macchiato',
+      transparent_background = true,
+      term_colors = true,
       integrations = {
         cmp = true,
         gitsigns = true,
@@ -34,20 +37,39 @@ return {
         },
         indent_blankline = {
           enabled = true,
-          scope_color = '', -- catppuccin color (eg. `lavender`) Default: text
+          scope_color = 'lavender', -- catppuccin color (eg. `lavender`) Default: text
           colored_indent_levels = false,
         },
         noice = true,
         ufo = true,
         lsp_trouble = true,
         which_key = true,
+        headlines = true,
+        mason = true,
+        native_lsp = {
+          enabled = true,
+          virtual_text = {
+            errors = { 'italic' },
+            hints = { 'italic' },
+            warnings = { 'italic' },
+            information = { 'italic' },
+          },
+          underlines = {
+            errors = { 'underline' },
+            hints = { 'underline' },
+            warnings = { 'underline' },
+            information = { 'underline' },
+          },
+          inlay_hints = {
+            background = true,
+          },
+        },
+        treesitter_context = true,
+        symbols_outline = true,
       },
     },
-    config = function()
-      require('catppuccin').setup {
-        flavour = 'macchiato',
-        transparent_background = true,
-      }
+    config = function(_, opts)
+      require('catppuccin').setup(opts)
       vim.cmd.colorscheme 'catppuccin'
     end,
   },
@@ -293,8 +315,6 @@ return {
 
   {
     'rasulomaroff/reactive.nvim',
-    -- WARN: reactive broke via vimdoc update keep at v1 for now
-    tag = 'v1.0.0',
     event = 'VeryLazy',
     config = function()
       require('reactive').setup {
@@ -354,7 +374,12 @@ return {
       end)
 
       vim.g.rainbow_delimiters = { highlight = highlight }
-      require('ibl').setup { scope = { highlight = highlight } }
+      require('ibl').setup {
+        debounce = 100,
+        indent = { char = '┊' },
+        whitespace = { highlight = { 'Whitespace', 'NonText' } },
+        scope = { exclude = { language = { 'lua' } } },
+      }
 
       hooks.register(
         hooks.type.SCOPE_HIGHLIGHT,
@@ -389,5 +414,12 @@ return {
         middle_mouse_command = nil, -- can be a string | function, | false see "Mouse actions"
       },
     },
+  },
+
+  -- init.lua
+  {
+    'lukas-reineke/headlines.nvim',
+    dependencies = 'nvim-treesitter/nvim-treesitter',
+    opts = {},
   },
 }
