@@ -20,18 +20,18 @@ return {
       custom_highlights = function(colors)
         return {
           LuaLineDiffAdd = {
-            fg = colors.surface0,
-            bg = colors.green,
+            bg = colors.surface0,
+            fg = colors.green,
             bold = true,
           },
           LuaLineDiffChange = {
-            fg = colors.surface0,
-            bg = colors.peach,
+            bg = colors.surface0,
+            fg = colors.peach,
             bold = true,
           },
           LuaLineDiffDelete = {
-            fg = colors.surface0,
-            bg = colors.red,
+            bg = colors.surface0,
+            fg = colors.red,
             bold = true,
           },
           SymbolUsageRef = {
@@ -196,37 +196,6 @@ return {
     'nvim-lualine/lualine.nvim',
     dependencies = {
       { 'dokwork/lualine-ex' },
-      {
-        'epwalsh/pomo.nvim',
-        version = '*', -- Recommended, use latest release instead of latest commit
-        lazy = true,
-        cmd = { 'TimerStart', 'TimerRepeat' },
-        keys = {
-          {
-            '<leader>pt',
-            function()
-              local pomo = require 'pomo'
-
-              local timer = pomo.get_first_to_finish()
-              if timer == nil then
-                return '<CMD>TimerStart 25m Work<CR>'
-              end
-
-              return '<CMD>TimerStop<CR>'
-            end,
-            desc = 'Toggle [P]omodoro [T]imer',
-          },
-        },
-        dependencies = {
-          -- Optional, but highly recommended if you want to use the "Default" timer
-          'rcarriga/nvim-notify',
-        },
-        opts = {
-          -- See below for full list of options 👇
-        },
-      },
-      -- { 'archibate/lualine-time' },
-      -- { 'arkav/lualine-lsp-progress' },
     },
     -- See `:help lualine.txt`
     opts = {
@@ -256,15 +225,30 @@ return {
             return ret
           end,
           'location',
-        },
-        lualine_c = {
           {
             'branch',
             cond = function()
               return vim.fn.winwidth(0) > 120
             end,
           },
-          'diff',
+        },
+        lualine_c = {
+          {
+            'diff',
+            separator = { right = '' },
+            colored = true, -- Displays a colored diff status if set to true
+            diff_color = {
+              -- Same color values as the general color option can be used here.
+              added = 'LuaLineDiffAdd', -- Changes the diff's added color
+              modified = 'LuaLineDiffChange', -- Changes the diff's modified color
+              removed = 'LuaLineDiffDelete', -- Changes the diff's removed color you
+            },
+            symbols = { added = '+', modified = ' ~', removed = ' -' }, -- Changes the symbols used by the diff.
+            source = nil, -- A function that works as a data source for diff.
+            -- It must return a table as such:
+            --   { added = add_count, modified = modified_count, removed = removed_count }
+            -- or nil on failure. count <= 0 won't be displayed.
+          },
         },
         lualine_x = {
           { 'diagnostics' },
