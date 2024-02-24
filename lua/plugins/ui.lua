@@ -225,8 +225,8 @@ return {
           -- See below for full list of options 👇
         },
       },
-      { 'archibate/lualine-time' },
-      { 'arkav/lualine-lsp-progress' },
+      -- { 'archibate/lualine-time' },
+      -- { 'arkav/lualine-lsp-progress' },
     },
     -- See `:help lualine.txt`
     opts = {
@@ -267,33 +267,9 @@ return {
           'diff',
         },
         lualine_x = {
-          -- {
-          --   'lsp_progress',
-          --   colors = {
-          --     use = true,
-          --   },
-          --   display_components = { { 'title', 'percentage', 'message' } },
-          -- },
           { 'diagnostics' },
         },
         lualine_y = {
-          {
-            'ex.lsp.all',
-            icons_only = true,
-            icons = {
-              ['biome'] = { '' },
-              ['typescript-tools'] = { '󰛦' },
-              ['tsserver'] = { '󰛦' },
-              ['tailwindcss'] = { '󱏿' },
-            },
-            only_attached = true,
-
-            -- If true then every closed client will be echoed:
-            notify_enabled = true,
-
-            -- The name of highlight group which should be used in echo:
-            notify_hl = 'Comment',
-          },
           -- NOTE: Formatter toggle
           function()
             local ok = pcall(require, 'conform')
@@ -311,21 +287,23 @@ return {
         },
         lualine_z = {
           {
-            function()
-              local ok, pomo = pcall(require, 'pomo')
-              if not ok then
-                return ''
-              end
+            'ex.lsp.all',
+            icons_only = true,
+            icons = {
+              ['lua_ls'] = { '󰢱', fg = 'black' },
+              ['biome'] = { '', fg = 'black' },
+              ['typescript-tools'] = { '󰛦', fg = 'black' },
+              ['tsserver'] = { '󰛦', fg = 'black' },
+              ['tailwindcss'] = { '󱏿', fg = 'black' },
+            },
+            only_attached = true,
 
-              local timer = pomo.get_first_to_finish()
-              if timer == nil then
-                return ''
-              end
+            -- If true then every closed client will be echoed:
+            notify_enabled = true,
 
-              return '󰄉 ' .. tostring(timer)
-            end,
+            -- The name of highlight group which should be used in echo:
+            notify_hl = 'Comment',
           },
-          { 'ctime' },
         },
         -- lualine_z = { { 'filetype', colored = false, }
         -- }
