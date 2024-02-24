@@ -17,6 +17,58 @@ return {
       flavour = 'macchiato',
       transparent_background = true,
       term_colors = true,
+      custom_highlights = function(colors)
+        return {
+          LuaLineDiffAdd = {
+            fg = colors.surface0,
+            bg = colors.green,
+            bold = true,
+          },
+          LuaLineDiffChange = {
+            fg = colors.surface0,
+            bg = colors.peach,
+            bold = true,
+          },
+          LuaLineDiffDelete = {
+            fg = colors.surface0,
+            bg = colors.red,
+            bold = true,
+          },
+          SymbolUsageRef = {
+            fg = colors.surface0,
+            bg = colors.peach,
+            bold = true,
+          },
+          SymbolUsageRefRound = {
+            fg = colors.peach,
+            bold = true,
+          },
+          SymbolUsageDef = {
+            fg = colors.surface0,
+            bg = colors.pink,
+            bold = true,
+          },
+          SymbolUsageDefRound = {
+            fg = colors.pink,
+            bold = true,
+          },
+          SymbolUsageImpl = {
+            fg = colors.surface0,
+            bg = colors.teal,
+            bold = true,
+          },
+          SymbolUsageImplRound = {
+            fg = colors.teal,
+            bold = true,
+          },
+          Rainbow1 = { fg = colors.red },
+          Rainbow2 = { fg = colors.yellow },
+          Rainbow3 = { fg = colors.blue },
+          Rainbow4 = { fg = colors.green },
+          Rainbow5 = { fg = colors.pink },
+          Rainbow6 = { fg = colors.teal },
+        }
+      end,
       integrations = {
         cmp = true,
         gitsigns = true,
