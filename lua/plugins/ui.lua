@@ -34,6 +34,26 @@ return {
             fg = colors.red,
             bold = true,
           },
+          LuaLineDiagnosticsError = {
+            bg = colors.surface0,
+            fg = colors.red,
+            bold = true,
+          },
+          LuaLineDiagnosticsWarn = {
+            bg = colors.surface0,
+            fg = colors.yellow,
+            bold = true,
+          },
+          LuaLineDiagnosticsInfo = {
+            bg = colors.surface0,
+            fg = colors.blue,
+            bold = true,
+          },
+          LuaLineDiagnosticsHint = {
+            bg = colors.surface0,
+            fg = colors.green,
+            bold = true,
+          },
           SymbolUsageRef = {
             fg = colors.surface0,
             bg = colors.peach,
@@ -251,7 +271,18 @@ return {
           },
         },
         lualine_x = {
-          { 'diagnostics' },
+          {
+            'diagnostics',
+            separator = { right = '', left = '' },
+            diagnostics_color = {
+              -- Same values as the general color option can be used here.
+              error = 'LuaLineDiagnosticsError', -- Changes diagnostics' error color.
+              warn = 'LuaLineDiagnosticsWarn', -- Changes diagnostics' warn color.
+              info = 'LuaLineDiagnosticsInfo', -- Changes diagnostics' info color.
+              hint = 'LuaLineDiagnosticsHint', -- Changes diagnostics' hint color.
+            },
+            update_in_insert = true, -- Update diagnostics in insert mode.
+          },
         },
         lualine_y = {
           -- NOTE: Formatter toggle
