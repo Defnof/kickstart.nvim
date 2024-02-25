@@ -1,5 +1,11 @@
 return {
   {
+    'chrisgrieser/nvim-recorder',
+    dependencies = 'rcarriga/nvim-notify', -- optional
+    opts = {}, -- required even with default settings, since it calls `setup()`
+  },
+
+  {
     -- NOTE: Surround commands
     'kylechui/nvim-surround',
     version = '*', -- Use for stability; omit to use `main` branch for the latest featuresnvim
