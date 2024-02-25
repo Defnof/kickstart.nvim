@@ -285,20 +285,24 @@ return {
           },
         },
         lualine_y = {
-          -- NOTE: Formatter toggle
-          function()
-            local ok = pcall(require, 'conform')
+          { require('recorder').recordingStatus },
+          { require('recorder').displaySlots },
+          {
+            -- NOTE: Formatter toggle
+            function()
+              local ok = pcall(require, 'conform')
 
-            if not ok then
-              return ''
-            end
+              if not ok then
+                return ''
+              end
 
-            if not vim.g.autoformat then
-              return ''
-            end
+              if not vim.g.autoformat then
+                return ''
+              end
 
-            return '󰉢' .. ' conform '
-          end,
+              return '󰉢' .. ' conform '
+            end,
+          },
         },
         lualine_z = {
           {
