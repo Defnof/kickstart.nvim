@@ -1,14 +1,5 @@
 return {
   {
-    -- NOTE: Work with registers
-    'tversteeg/registers.nvim',
-    name = 'registers',
-    keys = {
-      { '"', mode = { 'n', 'v' } },
-      { '<C-R>', mode = 'i' },
-    },
-  },
-  {
     -- NOTE: Surround commands
     'kylechui/nvim-surround',
     version = '*', -- Use for stability; omit to use `main` branch for the latest featuresnvim
