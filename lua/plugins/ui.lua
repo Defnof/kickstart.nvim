@@ -306,9 +306,11 @@ return {
             icons_only = true,
             icons = {
               ['lua_ls'] = { '󰢱', fg = 'black' },
+              ['rust_analyzer'] = { '', fg = 'black' },
+              ['jsonls'] = { '', fg = 'black' },
               ['biome'] = { '', fg = 'black' },
-              ['typescript-tools'] = { '󰛦', fg = 'black' },
-              ['tsserver'] = { '󰛦', fg = 'black' },
+              ['typescript-tools'] = { '', fg = 'black' },
+              ['tsserver'] = { '', fg = 'black' },
               ['tailwindcss'] = { '󱏿', fg = 'black' },
             },
             only_attached = true,
