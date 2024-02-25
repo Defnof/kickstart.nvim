@@ -161,7 +161,7 @@ return {
     'mbbill/undotree',
     opts = {},
     keys = {
-      { '<leader>u', 'CMDUndotreeToggleCR', desc = 'Toggle [U]ndoTree' },
+      { '<leader>u', '<CMD>UndotreeToggle<CR>', desc = 'Toggle [U]ndoTree' },
     },
   },
 
