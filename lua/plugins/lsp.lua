@@ -81,6 +81,7 @@ return {
             'codespell',
             'isort',
             'stylua',
+            'shfmt'
           },
           auto_update = true,
         },
@@ -109,6 +110,8 @@ return {
         -- Use a sub-list to run only the first available formatter
         javascript = { 'biome' },
         typescript = { 'biome' },
+        shell = {'shfmt'},
+        sh = {'shfmt'},
         -- Use the "*" filetype to run formatters on all filetypes.
         ['*'] = { 'codespell' },
         -- Use the "_" filetype to run formatters on filetypes that don't
