@@ -20,9 +20,10 @@ local lsputils = require 'lspconfig.util'
 --  define the property 'filetypes' to the map in question.
 local servers = {
   -- clangd = {},
-  gopls = {},
-  pyright = {},
+  gopls = { name = 'gopls' },
+  pyright = { name = 'pyright' },
   biome = {
+    name = 'biome',
     root_dir = lsputils.root_pattern 'biome.json',
     single_file_support = false,
     settings = {
@@ -36,6 +37,7 @@ local servers = {
     },
   },
   eslint = {
+    name = 'eslint-lsp',
     root_dir = lsputils.root_pattern '.eslintrc.js',
     single_file_support = false,
     settings = {
@@ -49,11 +51,13 @@ local servers = {
     },
   },
   tailwindcss = {
+    name = 'tailwindcss-language-server',
     filetypes = {
       'typescriptreact',
     },
   },
   jsonls = {
+    name = 'json-lsp',
     settings = {
       json = {
         format = {
@@ -63,8 +67,9 @@ local servers = {
       },
     },
   },
-  bashls = {},
+  bashls = { name = 'bash-language-server' },
   lua_ls = {
+    name = 'lua-language-server',
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
@@ -83,8 +88,7 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- You can add other tools here that you want Mason to install
 -- for you, so that they are available from within Neovim.
-local ensure_installed = vim.tbl_keys(servers or {})
-vim.list_extend(ensure_installed, {
+local ensure_installed = {
   'biome',
   'codespell',
   'isort',
@@ -92,9 +96,23 @@ vim.list_extend(ensure_installed, {
   'shfmt',
 
   -- additional servers that we don't want to setup via lspconfig
-  'tsserver',
-  'rust_analyzer',
-})
+  'typescript-language-server',
+  'rust-analyzer',
+}
+
+local mason_lsp = {}
+
+-- Get the mason name for mason-tool-installer
+for server, settings in pairs(servers) do
+  if settings['name'] == nil then
+    return
+  end
+
+  table.insert(ensure_installed, settings['name'])
+  settings['name'] = nil
+end
+
+vim.list_extend(ensure_installed, mason_lsp)
 
 -- Ensure the servers above are installed
 require('mason-tool-installer').setup { ensure_installed = ensure_installed }
