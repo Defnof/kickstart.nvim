@@ -24,7 +24,9 @@ vim.defer_fn(function()
       -- DOCS
       'html',
       'xml',
-      'yml',
+      'yaml',
+      -- OTHERS
+      'comment',
     },
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
