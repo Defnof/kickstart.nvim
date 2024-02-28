@@ -11,7 +11,7 @@ return {
     dependencies = {
       -- Automatically install LSPs to stdpath for neovim
       { 'williamboman/mason.nvim', config = true },
-      'williamboman/mason-lspconfig.nvim',
+      'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -165,7 +165,6 @@ return {
 
   {
     'pmizio/typescript-tools.nvim',
-    enabled = false,
     ft = {
       { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
     },
@@ -189,7 +188,6 @@ return {
 
   {
     'mrcjkb/rustaceanvim',
-    enabled = false,
     version = '^3',
     ft = { 'rust' },
     config = function(_, _)
