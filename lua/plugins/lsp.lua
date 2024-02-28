@@ -72,21 +72,6 @@ return {
     'stevearc/conform.nvim',
     event = { 'BufWritePre' },
     cmd = { 'ConformInfo' },
-    dependencies = {
-      {
-        'WhoIsSethDaniel/mason-tool-installer.nvim',
-        opts = {
-          ensure_installed = {
-            'biome',
-            'codespell',
-            'isort',
-            'stylua',
-            'shfmt'
-          },
-          auto_update = true,
-        },
-      },
-    },
     keys = {
       {
         '<leader>cf',
@@ -110,8 +95,8 @@ return {
         -- Use a sub-list to run only the first available formatter
         javascript = { 'biome' },
         typescript = { 'biome' },
-        shell = {'shfmt'},
-        sh = {'shfmt'},
+        shell = { 'shfmt' },
+        sh = { 'shfmt' },
         -- Use the "*" filetype to run formatters on all filetypes.
         ['*'] = { 'codespell' },
         -- Use the "_" filetype to run formatters on filetypes that don't

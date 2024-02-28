@@ -156,18 +156,19 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
 
+local ensure_installed = {
+  'biome',
+  'codespell',
+  'isort',
+  'stylua',
+  'shfmt',
+}
+
+vim.tbl_deep_extend('force', {}, vim.tbl_keys(servers), ensure_installed)
+
 mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
 }
-
-local in_table = function(table, value)
-  for _, v in pairs(table) do
-    if v == value then
-      return true
-    end
-  end
-  return false
-end
 
 mason_lspconfig.setup_handlers {
   function(server_name)
