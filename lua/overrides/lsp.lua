@@ -88,7 +88,7 @@ local tsserver = {
 --  define the property 'filetypes' to the map in question.
 local servers = {
   -- clangd = {},
-  -- gopls = {},
+  gopls = {},
   pyright = {},
   biome = {
     root_dir = lsputils.root_pattern 'biome.json',
