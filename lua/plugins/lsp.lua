@@ -11,7 +11,7 @@ return {
     dependencies = {
       -- Automatically install LSPs to stdpath for neovim
       { 'williamboman/mason.nvim', config = true },
-      'WhoIsSethDaniel/mason-tool-installer.nvim',
+      { 'WhoIsSethDaniel/mason-tool-installer.nvim', config = true },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -166,22 +166,18 @@ return {
   {
     'pmizio/typescript-tools.nvim',
     ft = {
-      { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
+      'typescript',
+      'typescriptreact',
+      'javascript',
+      'javascriptreact',
     },
     dependencies = {
       'nvim-lua/plenary.nvim',
       'neovim/nvim-lspconfig',
-      {
-        'artemave/workspace-diagnostics.nvim',
-        enabled = false,
-        opts = {},
-      },
     },
     opts = {
       on_attach = function(client, bufnr)
         require('utils.mapping').map_lsp_keybinds(bufnr)
-        -- TODO: Figure out why it does not work, and why it keeps lsp keybinds from working
-        -- require("workspace-diagnostics").populate_workspace_diagnostics(client, bufnr)
       end,
     },
   },
