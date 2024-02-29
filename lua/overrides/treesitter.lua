@@ -23,6 +23,7 @@ vim.defer_fn(function()
       'bash',
       -- DOCS
       'html',
+      'norg',
       'xml',
       'yaml',
       -- OTHERS
