@@ -263,7 +263,7 @@ return {
     dependencies = 'kevinhwang91/promise-async',
     opts = {
       open_fold_hl_timeout = 150,
-      close_fold_kinds = { 'imports' },
+      close_fold_kinds = {},
       preview = {
         win_config = {
           border = { '', '─', '', '', '', '─', '', '' },
