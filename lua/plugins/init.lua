@@ -107,6 +107,19 @@ return {
       -- enable saving the state of plugins in the session
       vim.opt.sessionoptions:append 'globals' -- save global variables that start with an uppercase letter and contain at least one lowercase letter.
     end,
+    config = function(_, opts)
+      require('neovim-project').setup(opts)
+
+      local augroup = vim.api.nvim_create_augroup('user_cmds', { clear = true })
+      vim.api.nvim_create_autocmd('User', {
+        pattern = { 'SessionLoadPost' },
+        group = augroup,
+        desc = 'Update git env for dotfiles after loading session',
+        callback = function()
+          require('nvim-tree.api').tree.toggle { focus = false }
+        end,
+      })
+    end,
     keys = {
       {
         '<leader>pl',
