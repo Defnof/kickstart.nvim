@@ -13,6 +13,7 @@ nmap('j', "v:count == 0 ? 'gj' : 'j'", '', { expr = true, silent = true })
 
 -- Quit and Save
 nmap('<leader>s', '<CMD>w<CR>', '[S]ave Buffer')
+map({ 'n', 'v', 'i' }, '<C-s>', '<CMD>w<CR>', { desc = '[S]ave Buffer' })
 nmap('<A-q>', '<CMD>qa!<CR>', '[Q]uit Kickstart')
 nmap('<C-c>', '<cmd> %y+ <CR>', '[C]opy File')
 
