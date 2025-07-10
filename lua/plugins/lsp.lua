@@ -95,6 +95,8 @@ return {
         -- Use a sub-list to run only the first available formatter
         javascript = { 'biome' },
         typescript = { 'biome' },
+        typescriptreact = { 'biome' },
+        javascriptreact = { 'biome' },
         shell = { 'shfmt' },
         sh = { 'shfmt' },
         -- Use the "*" filetype to run formatters on all filetypes.
