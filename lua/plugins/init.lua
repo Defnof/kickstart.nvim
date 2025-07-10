@@ -99,6 +99,7 @@ return {
         '~/dotfiles/',
         '~/dotfiles/kickstart',
         '~/Documents/Brain/',
+        '~/Documents/algo/',
         '~/Documents/playground/*',
         '~/Documents/packages//*',
       },
