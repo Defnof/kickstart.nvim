@@ -130,6 +130,7 @@ return {
   {
     'nvim-neorg/neorg',
     build = ':Neorg sync-parsers',
+    enabled = false,
     event = 'VeryLazy',
     dependencies = { 'nvim-lua/plenary.nvim' },
     keys = {

@@ -101,7 +101,7 @@ return {
         '~/Documents/Brain/',
         '~/Documents/algo/',
         '~/Documents/playground/*',
-        '~/Documents/packages//*',
+        '~/Documents/packages/*',
       },
     },
     init = function()
